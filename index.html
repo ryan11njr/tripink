@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>丝路西行 · 莘县→敦煌 自驾大环线</title>
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<link rel="stylesheet" href="https://fonts.font.im/css?family=Cormorant+Garamond:400,500,600,400i,500i&display=swap"/>
+<script src="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<style>
+:root{
+  --ink:#1b1815; --ink2:#4a4339; --ink3:#807466;
+  --paper:#f2e7cb; --paper2:#ead9b0; --card:#fbf3da; --card2:#f6ead0;
+  --azur:#2b5d86; --azurd:#1c3f5e; --mal:#4d8a55; --mald:#3a6640; --cin:#b23a2e; --och:#c98a3e; --gold:#9a7730;
+  --line:rgba(27,24,21,.16); --line2:rgba(27,24,21,.08);
+  --fdisp:"STKaiti","KaiTi","楷体","LXGW WenKai","FangSong",serif;
+  --fbody:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --fnum:"Cormorant Garamond","Georgia",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--fbody);font-size:16px;line-height:1.8;
+  background-image:radial-gradient(900px 500px at 12% -8%,rgba(201,138,62,.13),transparent 60%),
+                    radial-gradient(800px 600px at 110% 0%,rgba(43,93,134,.09),transparent 55%);}
+img{max-width:100%}
+a{color:var(--azurd)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--fnum);font-style:italic;font-weight:500;letter-spacing:.08em;color:var(--gold);font-size:14px;text-transform:uppercase}
+.num{font-family:var(--fnum);font-weight:600}
+
+/* ---- Nav ---- */
+header.nav{position:sticky;top:0;z-index:800;background:rgba(242,231,203,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:18px;padding:11px 22px;max-width:1180px;margin:0 auto}
+.brand{font-family:var(--fdisp);font-size:22px;font-weight:700;letter-spacing:.04em;cursor:pointer;white-space:nowrap;line-height:1}
+.brand small{display:block;font-family:var(--fnum);font-style:italic;font-weight:400;font-size:10px;color:var(--gold);letter-spacing:.2em;margin-top:3px}
+.tabs{display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:7px 13px;font-size:13px;color:var(--ink2);border:1px solid transparent;border-radius:999px;cursor:pointer;white-space:nowrap;transition:.18s;font-family:var(--fbody)}
+.tab b{font-family:var(--fnum);font-weight:600;margin-right:3px;letter-spacing:.02em}
+.tab:hover{background:var(--card2)}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ---- Home hero ---- */
+.hero{padding:46px 0 18px}
+.hero h1{font-family:var(--fdisp);font-weight:700;font-size:clamp(34px,6vw,62px);line-height:1.12;margin:8px 0 6px;letter-spacing:.02em}
+.hero h1 em{font-style:normal;color:var(--cin)}
+.hero p.lede{font-size:16px;color:var(--ink2);max-width:700px;margin:0 0 22px}
+.statrow{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 8px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 16px;min-width:108px}
+.stat .v{font-family:var(--fnum);font-weight:600;font-size:26px;line-height:1;color:var(--ink)}
+.stat .u{font-size:12px;color:var(--ink2);margin-left:2px}
+.stat .l{font-size:11px;color:var(--ink3);margin-top:4px;letter-spacing:.04em}
+
+/* signature elevation profile */
+.profile-box{margin:30px 0 8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 18px 12px;position:relative}
+.profile-box h3{font-family:var(--fdisp);font-size:18px;margin:0 0 2px;font-weight:700;display:flex;align-items:baseline;gap:10px;padding-left:13px;position:relative}
+.profile-box h3:before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:3px;background:var(--gold)}
+.profile-box h3 .eyebrow{font-size:13px}
+.profile-legend{font-size:12px;color:var(--ink3);margin:6px 0 6px 13px}
+.profile-legend i{display:inline-block;width:14px;height:3px;background:var(--azurd);vertical-align:middle;margin:0 4px}
+.profile-legend i.r{background:var(--cin)}
+.profile-svg{width:100%;height:320px;display:block}
+
+/* home map */
+.map-card{margin:18px 0 8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+#homeMap{height:440px;border-radius:10px;border:1px solid var(--line2)}
+.map-card .h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:10px}
+.map-card .h h3{font-family:var(--fdisp);font-size:18px;margin:0;font-weight:700;padding-left:13px;position:relative}
+.map-card .h h3:before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:3px;background:var(--gold)}
+.tile-note{font-size:11px;color:var(--ink3);text-align:right}
+
+/* day cards grid on home */
+.sec-title{display:flex;align-items:baseline;gap:12px;margin:40px 0 16px}
+.sec-title h2{font-family:var(--fdisp);font-size:24px;margin:0;font-weight:700}
+.sec-title .ln{flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.daycard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+.daycard:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 8px 24px -14px rgba(27,24,21,.4)}
+.daycard .dn{font-family:var(--fnum);font-size:38px;font-weight:600;color:var(--och);line-height:1}
+.daycard .dd{font-size:12px;color:var(--ink3);margin-top:2px}
+.daycard .dr{font-family:var(--fdisp);font-size:17px;font-weight:700;margin:8px 0 4px}
+.daycard .ds{font-size:13px;color:var(--ink2)}
+.tags{margin-top:10px;display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 9px;border-radius:999px;background:var(--paper2);color:var(--ink2)}
+.tag.hard{background:#efd6cf;color:var(--cin)} .tag.mid{background:#f3e4c5;color:var(--och)} .tag.easy{background:#d9e6cf;color:var(--mald)}
+.bdg{position:absolute;top:14px;right:14px;font-size:11px;color:var(--ink3);font-family:var(--fnum)}
+
+/* dot + intensity */
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:baseline;margin-right:5px}
+.dot.hard{background:var(--cin)} .dot.mid{background:var(--och)} .dot.easy{background:var(--mal)}
+
+/* ---- Day page ---- */
+.day-head{padding:34px 0 10px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.day-head .row{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.day-head .bignum{font-family:var(--fnum);font-weight:600;font-size:74px;line-height:.9;color:var(--cin)}
+.day-head .meta{flex:1;min-width:240px}
+.day-head h2{font-family:var(--fdisp);font-size:clamp(26px,4vw,38px);margin:0;font-weight:700;letter-spacing:.02em}
+.day-head .sub{color:var(--ink2);margin-top:4px;font-size:14px}
+.kpis{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 13px}
+.kpi .v{font-family:var(--fnum);font-weight:600;font-size:18px}
+.kpi .l{font-size:11px;color:var(--ink3);letter-spacing:.04em}
+
+.two-col{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:start}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 10px;margin-bottom:18px}
+.panel>h3{font-family:var(--fdisp);font-size:20px;margin:0 0 14px;font-weight:700;display:flex;align-items:baseline;gap:12px;padding-left:13px;position:relative}
+.panel>h3:before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:3px;background:var(--gold)}
+.panel>h3 .eyebrow{font-size:11px;margin-left:auto;color:var(--ink3)}
+
+/* timeline */
+.tl{margin:0;padding:0 0 6px;list-style:none;position:relative}
+.tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--paper2)}
+.tl li{position:relative;padding:0 0 13px 30px}
+.tl li:before{content:"";position:absolute;left:3px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--card);border:2px solid var(--och)}
+.tl .t{font-family:var(--fnum);font-weight:600;color:var(--cin);font-size:15px}
+.tl .c{font-size:14px;color:var(--ink2);line-height:1.65}
+.tl .c b{color:var(--ink)}
+
+/* mini map */
+#dayMap{height:260px;border-radius:10px;border:1px solid var(--line2);margin-bottom:6px}
+.mini-profile{width:100%;height:100px;display:block;margin-top:8px}
+
+/* ===== guide cards (deep) ===== */
+.guide{border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;background:var(--card2);position:relative}
+.guide:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:14px 0 0 14px;background:var(--gold)}
+.guide.his:before{background:var(--cin)} .guide.geo:before{background:var(--mal)} .guide.cul:before{background:var(--och)}
+.g-cat{font-family:var(--fnum);font-style:italic;font-weight:600;letter-spacing:.08em;font-size:12px;text-transform:uppercase;color:var(--gold)}
+.guide.his .g-cat{color:var(--cin)} .guide.geo .g-cat{color:var(--mald)} .guide.cul .g-cat{color:var(--och)}
+.guide h4{font-family:var(--fdisp);font-size:21px;margin:4px 0 8px;font-weight:700;line-height:1.25}
+.g-hook{font-size:14px;color:var(--ink2);border-left:2px solid var(--gold);padding:2px 0 2px 12px;margin:0 0 14px;line-height:1.6;font-family:var(--fdisp);font-weight:500}
+.g-facts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.fact{font-size:12px;background:var(--paper);border:1px solid var(--line2);border-radius:6px;padding:3px 9px;color:var(--ink3)}
+.fact b{font-family:var(--fnum);font-weight:600;color:var(--azurd);font-size:13px;margin-left:4px}
+.g-sec{display:grid;grid-template-columns:60px 1fr;gap:12px;margin:0 0 11px;font-size:14.5px;line-height:1.78}
+@media(max-width:480px){.g-sec{grid-template-columns:1fr;gap:2px}.g-sec .l{font-size:11px}}
+.g-sec .l{color:var(--gold);font-weight:700;font-size:12px;letter-spacing:.1em;padding-top:4px}
+.g-sec .b{color:var(--ink2)} .g-sec .b b{color:var(--ink)}
+.g-anec{margin-top:12px;padding:11px 14px;background:rgba(178,58,46,.06);border:1px solid rgba(178,58,46,.16);border-radius:8px;font-size:13.5px;color:var(--ink2);line-height:1.7}
+.g-anec b{color:var(--cin);font-family:var(--fdisp)}
+
+/* weather */
+.w-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.w-cell{background:var(--paper);border:1px solid var(--line2);border-radius:10px;padding:10px 8px;text-align:center}
+.w-cell .wl{font-size:11px;color:var(--ink3);letter-spacing:.04em}
+.w-cell .wv{font-family:var(--fnum);font-weight:600;font-size:22px;color:var(--ink);line-height:1.2;margin-top:2px}
+.w-cell .wv small{font-size:12px;color:var(--ink2);font-family:var(--fbody)}
+.w-cell.sun .wv{color:var(--och)}
+.w-note{font-size:12px;color:var(--ink3);margin:4px 2px 10px;line-height:1.6}
+.uvline{font-size:13px;margin:6px 2px 2px}
+.uvbar{height:6px;border-radius:3px;background:linear-gradient(90deg,#4d8a55,#c98a3e,#b23a2e);position:relative;margin:4px 2px 8px}
+.uv-dot{position:absolute;top:-3px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--card)}
+.w-meta{display:flex;gap:14px;font-size:13px;color:var(--ink2);margin:2px 2px 10px;flex-wrap:wrap}
+
+/* food & hotel */
+.eat{border-top:1px dashed var(--line);padding:14px 0}
+.eat:first-of-type{border-top:none;padding-top:2px}
+.eat h4{margin:0;font-family:var(--fdisp);font-size:17px;font-weight:700}
+.eat .shop{font-size:13px;color:var(--cin);margin:2px 0;font-weight:500}
+.eat p{margin:5px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.7}
+.eat .src{font-size:11px;color:var(--ink3);font-family:var(--fnum);font-style:italic;margin-top:4px}
+.hotel-area{font-size:13.5px;color:var(--ink2);margin-bottom:8px;line-height:1.6}
+.hotel-list{list-style:none;padding:0;margin:0}
+.hotel-list li{padding:9px 11px;border:1px solid var(--line2);border-radius:9px;margin-bottom:7px;background:var(--paper)}
+.hotel-list .hn{font-weight:600;font-family:var(--fdisp);font-size:15px}
+.hotel-list .hp{float:right;font-family:var(--fnum);font-weight:600;color:var(--mald)}
+.hotel-list .hn small{display:block;font-family:var(--fbody);font-weight:400;font-size:12px;color:var(--ink3);margin-top:3px}
+
+/* cost */
+table.cost{width:100%;border-collapse:collapse;font-size:14px}
+table.cost td{padding:7px 4px;border-bottom:1px dashed var(--line2)}
+table.cost td:nth-child(2){text-align:right;font-family:var(--fnum);font-weight:600}
+table.cost tr.sum td{border-bottom:none;border-top:2px solid var(--ink);padding-top:9px;font-size:17px;color:var(--cin)}
+table.cost tr.sum td:nth-child(2){font-size:20px}
+
+/* ===== budget dashboard ===== */
+.bud-hero{display:flex;gap:30px;flex-wrap:wrap;align-items:flex-end;padding:20px 0 6px;margin-bottom:8px}
+.bud-hero .big{font-family:var(--fnum);font-weight:600;font-size:64px;line-height:.95;color:var(--cin)}
+.bud-hero .big small{font-size:18px;color:var(--ink2)}
+.bud-hero .pp{font-size:14px;color:var(--ink2)}
+.bud-hero .pp b{font-family:var(--fnum);font-size:22px;color:var(--ink)}
+.bud-range{font-size:12px;color:var(--ink3);margin-bottom:18px}
+.bchart{display:flex;align-items:flex-end;gap:10px;height:230px;padding:12px 4px 0;border-bottom:1.5px solid var(--ink);overflow-x:auto}
+.bbar{flex:1;min-width:46px;display:flex;flex-direction:column-reverse;cursor:pointer;position:relative}
+.bbar .segs{display:flex;flex-direction:column-reverse;width:100%;border-radius:5px 5px 0 0;overflow:hidden}
+.bbar .seg{width:100%;transition:filter .15s}
+.bbar:hover .seg{filter:brightness(1.08)}
+.bbar .bl{font-size:11px;color:var(--ink2);text-align:center;margin-top:6px;font-family:var(--fnum);font-weight:600;line-height:1.1}
+.bbar .bd{font-size:9px;color:var(--ink3);text-align:center}
+.blegend{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 6px;font-size:12.5px;color:var(--ink2)}
+.blegend i{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.bcat-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
+.bcat-table td{padding:8px 4px;border-bottom:1px dashed var(--line2)}
+.bcat-table td:nth-child(3){text-align:right;font-family:var(--fnum);font-weight:600}
+.bcat-table td:nth-child(4){text-align:right;color:var(--ink3);font-family:var(--fnum);font-size:13px}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:8px;vertical-align:middle}
+
+.foot-nav{display:flex;justify-content:space-between;gap:12px;margin:30px 0 10px}
+.foot-nav a{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:.18s;cursor:pointer}
+.foot-nav a:hover{border-color:var(--gold)}
+.foot-nav a.r{text-align:right}
+.foot-nav small{display:block;font-size:11px;color:var(--ink3);font-family:var(--fnum);letter-spacing:.1em}
+.foot-nav b{font-family:var(--fdisp);font-size:15px}
+
+footer.site{padding:40px 0 50px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:30px}
+footer.site .src-list{max-width:720px;margin:10px auto 0;text-align:left;font-size:11px;line-height:1.95;color:var(--ink3)}
+footer.site a{color:var(--ink2)}
+
+.reveal{opacity:0;transform:translateY(14px);transition:.6s}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+.hidden{display:none!important}
+.route-badge{display:inline-block;padding:1px 9px;border-radius:5px;background:var(--azurd);color:var(--paper);font-size:11px;margin-left:6px;font-family:var(--fnum);font-weight:600;letter-spacing:.04em}
+
+/* profile elements */
+.profile-svg .grid{stroke:rgba(27,24,21,.12);stroke-width:1}
+.profile-svg .glab{font-family:'Cormorant Garamond',Georgia;font-size:10px;fill:#807466}
+.profile-svg .xlab{font-family:'Cormorant Garamond',Georgia;font-size:10px;fill:#807466}
+.profile-svg .nm{font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:11px}
+.profile-svg .pt{cursor:pointer;transition:.15s}
+.profile-svg .pt:hover{r:6}
+
+/* collapsible guide */
+.guide .g-toggle{cursor:pointer}
+.g-chev{font-family:var(--fnum);font-size:12px;color:var(--gold);letter-spacing:.1em;margin-top:10px;text-align:right;border-top:1px dashed var(--line2);padding-top:8px}
+.g-chev:after{content:'展开 · 沿革 / 看点 / 典故 ＋'}
+.guide.open .g-chev:after{content:'收起 －'}
+.g-body{display:none;margin-top:14px}
+.guide.open .g-body{display:block}
+.guide.open .g-hook{margin-bottom:6px}
+.g-src{font-size:11.5px;color:var(--ink3);margin-top:14px;padding-top:10px;border-top:1px dashed var(--line2);line-height:1.75;font-style:italic}
+.g-src b{color:var(--ink2);font-style:normal;font-family:var(--fbody)}
+
+/* tips list (no vertical line, clean diamonds) */
+.tips{list-style:none;margin:0;padding:0}
+.tips li{position:relative;padding:9px 0 9px 24px;font-size:13.5px;color:var(--ink2);line-height:1.7;border-bottom:1px dashed var(--line2)}
+.tips li:last-child{border-bottom:none}
+.tips li:before{content:"";position:absolute;left:3px;top:15px;width:9px;height:9px;border:1.5px solid var(--och);background:var(--card);transform:rotate(45deg)}
+.tips li b{color:var(--ink)}
+.g-img{width:100%;height:152px;object-fit:cover;border-radius:10px;margin-bottom:14px;display:block;background:var(--paper2);border:1px solid var(--line2)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brand" onclick="go('')">丝路西行<small>SHENXIAN · DUNHUANG</small></div>
+    <nav class="tabs" id="tabs"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HOME -->
+  <section id="home">
+    <div class="hero">
+      <div class="eyebrow">2026 · 08 · 08 — 08 · 15 　 Eight Days · Seven Nights</div>
+      <h1>从平原到<em>敦煌</em>，<br/>一条贯穿大西北的<em>色谱</em>。</h1>
+      <p class="lede">山东莘县出发，跨中原、登青藏高原、穿戈壁、入河西走廊，抵达鸣沙山月牙泉——草原、盐湖、沙漠、丹霞、石窟、关隘、王陵一气呵成。下方这条<strong>海拔剖面</strong>是整趟旅程的指纹：它告诉你哪几天会站到 3000 米之上。</p>
+      <div class="statrow">
+        <div class="stat"><div><span class="v">5,200</span><span class="u">km</span></div><div class="l">往返总里程</div></div>
+        <div class="stat"><div><span class="v">4</span><span class="u">人</span></div><div class="l">中型SUV · 95号</div></div>
+        <div class="stat"><div><span class="v">3,648</span><span class="u">m</span></div><div class="l">最高海拔 · 当金山</div></div>
+        <div class="stat"><div><span class="v">≈16,100</span><span class="u">¥</span></div><div class="l">4人总预算（核心）</div></div>
+        <div class="stat"><div><span class="v">7</span><span class="u">城</span></div><div class="l">麦积·西宁·青海湖·茶卡·敦煌·张掖·银川</div></div>
+      </div>
+    </div>
+
+    <div class="profile-box reveal">
+      <h3><span class="eyebrow">Signature</span>全程海拔剖面<span style="font-size:13px;color:var(--ink3);font-weight:400">　点任一节点进入当日</span></h3>
+      <div class="profile-legend"><i></i>主方案（蓝）　<i class="r"></i>3000m+ 高原反应风险段　朱砂点为海拔峰值</div>
+      <svg class="profile-svg" id="heroProfile" viewBox="0 0 1100 320"></svg>
+    </div>
+
+    <div class="map-card reveal">
+      <div class="h"><h3>全程路线图</h3><span class="tile-note">底图右上角可切换 矢量 / 卫星<br/>蓝实线 = 主方案 · 橙虚线 = 减负末段</span></div>
+      <div id="homeMap"></div>
+    </div>
+
+    <div class="sec-title reveal"><span class="eyebrow">Day by Day</span><h2>八日行程</h2><span class="ln"></span></div>
+    <div class="grid" id="dayGrid"></div>
+
+    <div class="sec-title reveal"><span class="eyebrow">Before You Go</span><h2>出行须知</h2><span class="ln"></span></div>
+    <div class="two-col">
+      <div class="panel"><h3>莫高窟应急票<span class="eyebrow">Today · 最紧急</span></h3>
+        <p style="font-size:14px;color:var(--ink2);margin:0 0 10px;line-height:1.75">A 类票（238 元，提前 30 天约）窗口早过，基本无望。<b>立刻</b>关注公众号「<b>莫高窟参观预约网</b>」，抢 <b>8/13 应急票（C 类 100 元，看 4 个窟）</b>，放票即时秒杀。</p>
+        <p style="font-size:14px;color:var(--ink2);margin:0;line-height:1.75">抢不到的 B 计划：<b>榆林窟</b>（敦煌以东，特窟壁画精美、人少）或 <b>西千佛洞</b>。</p></div>
+      <div class="panel"><h3>高原与装备<span class="eyebrow">3 Days @ 3000m+</span></h3>
+        <p style="font-size:14px;color:var(--ink2);margin:0;line-height:1.75">D3–D5 连续在 3000m 以上：避免剧烈运动、防感冒、多喝水。带<b>厚外套</b>（夜间 5–10℃ 看日出）、防晒三件套（紫外线指数 8+）、<b>便携氧气罐</b>、红景天（提前 1 周服）。莫高窟、嘉峪关需提前线上预约。</p></div>
+    </div>
+  </section>
+
+  <!-- DAY -->
+  <section id="day" class="hidden"></section>
+  <!-- BUDGET -->
+  <section id="budget" class="hidden"></section>
+
+  <div id="footNav"></div>
+</main>
+
+<footer class="site">
+  <div>丝路西行 · 一份为大西北定制的高审美自驾路书 · 2026.08</div>
+  <div class="src-list">
+    <b>数据来源：</b>
+    天气 Open-Meteo（按到达日期实时预报，Asia/Shanghai）· 油价 汽油价格网 qiyoujiage.com（2026 调价后）· 门票 敦煌研究院 dhafund.cn / trip.com / 本地宝 / 麦积山旅游公众号 · 食宿 小红书 · 马蜂窝 · 高德美食榜（哈海英麻辣烫 · 益鑫羊肉手抓馆 · 顺张黄面 · 孙记炒炮 · 老毛/国强手抓）· 里程费用 汽车之家青甘大环线游记（5600km 油费 2800 + 过路费 1910）· 地质历史 《中国国家地理》/ 敦煌研究院 / 中国天气网
+  </div>
+</footer>
+
+<script>
+/* ================= DATA ================= */
+const ELEV=[
+  ['莘县',0,50,'起'], ['天水',950,1100,'D1'], ['西宁',1550,2300,'D2'],
+  ['黑马河',1800,3200,'D3'], ['茶卡',1950,3059,'D4'], ['大柴旦',2180,3140,'D4'],
+  ['当金山',2490,3648,'D5'], ['敦煌',2720,1200,'D5'], ['嘉峪关',3090,1500,'D6'],
+  ['张掖',3310,1500,'D7'], ['银川',4060,1100,'D7'], ['家',5110,50,'D8']
+];
+const INMAP={hard:['hard','硬日'],mid:['mid','中等'],easy:['easy','轻松']};
+
+const DAYS=[
+{
+ n:1, date:'2026-08-08', wk:'周六', from:'莘县', to:'天水', dist:'950 km', drive:'约 10.5 h', intensity:'hard',
+ tag:'中原穿越', lat:34.581, lon:105.725, altM:1100, altLabel:'1,100 m',
+ route:'G30 连霍高速 · 聊城→邯郸→郑州→洛阳→三门峡→渭南→西安（过境不下）→宝鸡→天水',
+ timeline:[
+  ['06:30','莘县满油出发，赶在 7:00 前过郑州避开早高峰'],
+  ['12:30','三门峡或渭南服务区午饭、第二次加油'],
+  ['17:30—18:30','抵天水秦州区，入住休整'],
+  ['晚','吃一碗天水麻辣烫犒劳，早睡，次日爬麦积山']
+ ],
+ attractions:[
+  {cat:'his',name:'天水 · 羲皇故里',hook:'到秦州住一晚，是为了明天那座藏在麦垛山里的东方雕塑馆。',
+   facts:[['古称','秦州'],['相传','伏羲故里'],['地位','丝路入甘东大门']],
+   secs:[
+    ['引子','天水古称<b>秦州</b>，是华夏文明的重要发祥地。相传人文初祖<b>伏羲</b>在此演八卦，卦台山与秦州伏羲庙至今受祀，被誉为"羲皇故里"。它也是秦人发迹的西陲之地——秦先祖非子在此为周王室牧马，方有后来一统天下的"秦"。'],
+    ['看点','今晚若尚有余力，可去市中心<b>伏羲庙</b>（明代，中国规模最大的伏羲祭祀建筑群）广场散步，或登<b>南北二塔</b>看秦州夜色。明天的主角麦积山，就藏在城东南三十余公里的小陇山深处。']
+   ],
+   anec:'<b>伏羲庙</b>先天庙内有"先天八卦"古柏，相传按八八六十四卦方位栽植，今存古柏仍被当地人奉为神树。'}
+ ],
+ food:[
+  {dish:'天水麻辣烫（甘谷辣椒是灵魂）',shop:'哈海英麻辣烫 / 四合院麻辣烫（秦州区大众路）',
+   note:'2024 年火遍全网的天水本帮麻辣烫：手擀粉与各色菜串，浇上<b>甘谷辣椒油</b>，红亮香而不燥，辣中带麻、回口微甜。人均约 30 元。注意排队长，错峰去。',
+   src:'新华网 / 小红书探店帖'}
+ ],
+ hotel:{area:'秦州区或麦积区（近高铁站，便于次日去麦积山）',
+   recs:[{n:'全季 / 亚朵（天水秦州店）',p:'~280/间',note:'连锁，停车方便，携程预订'},
+         {n:'如家商旅（麦积山高铁站店）',p:'~220/间',note:'性价比，到麦积山约 15 分钟'}], budget:'500–600'},
+ cost:{fuel:812,toll:430,hotel:550,food:250,tickets:0,other:40},
+ climate:{tmax:'32',tmin:'22',humid:'60',uv:'8',sunrise:'06:12',sunset:'19:53',note:'晴热，注意防暑补水'}
+},
+{
+ n:2, date:'2026-08-09', wk:'周日', from:'天水', to:'西宁', dist:'600 km', drive:'约 7 h + 游览', intensity:'mid',
+ tag:'石窟 · 牛肉面', lat:36.617, lon:101.798, altM:2300, altLabel:'2,300 m',
+ route:'麦积山石窟 → G30 宝鸡 → 兰州（午餐牛肉面）→ G6 京藏 → 西宁',
+ timeline:[
+  ['08:00','进麦积山石窟，趁清晨凉爽看东方雕塑馆（约 2.5 小时）'],
+  ['11:00','出发，G30 向兰州'],
+  ['14:30','兰州午餐正宗牛肉面'],
+  ['18:30','抵西宁城东区入住；傍晚逛莫家街吃手抓']
+ ],
+ attractions:[
+  {cat:'his',name:'麦积山石窟 · 东方雕塑馆',hook:'莫高窟看壁画，云冈龙门看石雕，麦积山要看的是泥塑——一千六百年的微笑都堆在这座麦垛山上。',
+   facts:[['始凿','后秦 384–417'],['最盛','北魏–北周'],['现存','窟龛 221 · 泥塑逾万'],['海拔','1,742 m']],
+   secs:[
+    ['沿革','中国<b>四大石窟</b>之一（与莫高、云冈、龙门齐名），始凿于十六国<b>后秦（384–417 年）</b>，经北魏、西魏、北周大兴，隋唐续凿，宋明清妆修。北朝皇室与中原士族避乱关陇，留下大量功德窟。山体为第三纪疏松砂岩，不宜雕刻，匠人遂以<b>泥塑</b>立身、石胎泥塑，故以"东方雕塑馆"名世。'],
+    ['地质',"山形如农家麦垛，故名\"麦积\"。海拔 1742 米，绝壁拔地 142 米，凌空栈道贴崖而凿。<b>麦积烟雨</b>为秦州八景之首——小陇山林海多云雾，细雨中山色空蒙，宛若一幅水墨。"],
+    ['看点','第 <b>4 窟"散花楼"</b>（北周七佛阁，麦积山最大窟，崖壁上的飞檐石雕）；第 <b>133 窟"小沙弥"</b>（北魏少年比丘，低头浅笑，被称"东方微笑"，可与达·芬奇蒙娜丽莎并论）；第 <b>121 窟</b>菩萨与弟子"窃窃私语"；第 <b>44 窟</b>（西魏，传为皇后乙弗氏功德窟）。窟区朝阳，夏日炎热，<b>务必早上进窟</b>。'],
+    ['贴士','看窟需讲解。建议约官方讲解员或租语音导览；窟内禁用闪光。恐高者注意凌空栈道。']
+   ],
+   anec:'<b>乙弗氏之死</b>：西魏文帝为结好柔然被迫废后乙弗氏，乙弗后被赐死于秦州，传闻其子为母造麦积山第 44 窟——那尊微笑的西魏佛像，是匠人为一个含冤而死的皇后留下的温柔。'} ,
+  {cat:'cul',name:'兰州 · 黄河穿城',hook:'全国唯一黄河穿省会而过的城市，吃碗面就走。',
+   facts:[['地标','中山铁桥 1907'],['海拔','1,520 m'],['名产','牛肉面']],
+   secs:[
+    ['地志','兰州古称金城，扼河西走廊东口，黄河自西向东穿城而过，将城市分为南北。<b>中山铁桥</b>建于清光绪三十三年（1907），由德国泰来洋行承建，是黄河上第一座永久性公路桥，"天下黄河第一桥"。北岸白塔山、南岸皋兰山夹峙。'],
+    ['风物','<b>兰州牛肉面</b>讲究"一清二白三红四绿五黄"——汤清、萝卜白、油泼辣子红、蒜苗香菜绿、面条黄亮。午饭就在城关区找一家老字号，7 元一碗起步，加肉加蛋人均不过 20。']
+   ],
+   anec:''}
+ ],
+ food:[
+  {dish:'兰州牛肉面（过路午餐）',shop:'马子禄 / 白建强牛肉面（城关区）',note:'清汤牛肉拉面，7 元起一碗，加肉加蛋人均 20。',src:'本地口碑'},
+  {dish:'手抓羊肉 · 老酸奶 · 酿皮 · 炕锅羊肉',shop:'益鑫羊肉手抓馆（花园北街店，《舌尖上的中国》推荐） / 马忠食府（莫家街店） / 沙力海美食城',
+   note:'西宁手抓用高原羊，鲜嫩不膻；酿皮是西北特色凉皮，筋道酸辣；老酸奶浓稠酸甜、表面一层黄酥油。人均 70–90。',
+   src:'Tripadvisor / 马蜂窝'}
+ ],
+ hotel:{area:'城东区 莫家街 / 东关清真大寺一带（美食最集中）',
+   recs:[{n:'西宁城东 全季 / 亚朵',p:'~300/间',note:'连锁，步行到莫家街'},
+         {n:'如家精选（东关大街）',p:'~250/间',note:'性价比，停车需确认'}], budget:'500–650'},
+ cost:{fuel:513,toll:270,hotel:580,food:350,tickets:380,other:30},
+ climate:{tmax:'29',tmin:'14',humid:'55',uv:'9',sunrise:'06:14',sunset:'19:51',note:'到点降温明显，夜间 14℃ 加薄外套'}
+},
+{
+ n:3, date:'2026-08-10', wk:'周一', from:'西宁', to:'青海湖·黑马河', dist:'250 km', drive:'约 4 h + 游览', intensity:'easy',
+ tag:'高原圣湖', lat:36.733, lon:99.978, altM:3200, altLabel:'3,200 m',
+ route:'西宁 → 湟源 → 翻日月山 → 青海湖二郎剑景区 → G109 环湖 → 黑马河（看日落、次日看日出）',
+ timeline:[
+  ['可选 07:30','顺路游塔尔寺（1.5h，70元，藏传佛教格鲁派六大寺之一）'],
+  ['09:30','西宁出发，翻日月山，进入草原'],
+  ['11:30','抵青海湖二郎剑景区（90 元，2–3h，油菜花尾期、湖滨漫步）'],
+  ['16:00','沿 G109 环湖到黑马河，傍晚看湖上日落'],
+  ['夜','黑马河湖边客栈，厚外套，早睡为看日出']
+ ],
+ attractions:[
+  {cat:'geo',name:'青海湖 · 措温布（青色的海）',hook:'四千五百平方公里的水面铺在三千二百米的高原上，是中国最大的湖，也是文成公主传说里那面摔碎的宝镜。',
+   facts:[['面积','≈4,543 km²（仍在扩大）'],['湖面海拔','3,194 m'],['周长','≈360 km'],['含盐','约 1.25%（海水1/3）']],
+   secs:[
+    ['地质','<b>中国最大内陆湖、最大咸水湖</b>，面积四千五百多平方公里，约相当于半个北京。它是<b>断层陷落湖</b>：两亿多年前这里是古地中海（特提斯）的一部分，印度板块撞击欧亚板块、抬升青藏高原，湖水被封闭、盐分残留。百余万年前它本是与黄河相通的淡水湖，后气候变干、湖面下降成内陆，渐咸化。最深约 32 米。'],
+    ['生态','入湖河流五十余条，最大为西北岸注入的<b>布哈河</b>，其三角洲即<b>鸟岛</b>——斑头雁、棕头鸥、鸬鹚的天堂，五六月最盛。近年水位上涨淹没部分鸟岛，且生态保护已限流。<b>湟鱼</b>（青海湖裸鲤）是国家二级保护动物，切勿食用。'],
+    ['人文','藏族称它"<b>措温布</b>"——青色的海；蒙古语"库库诺尔"同义。环湖是藏、蒙古、回等多民族游牧区。藏族有<b>"转湖"</b>信仰：徒步绕湖一周约 360 公里、需月余，藏历羊年尤盛。每年 7 月的<b>环青海湖国际公路自行车赛</b>是亚洲顶级赛事。'],
+    ['传说','<b>文成公主</b>传说：唐贞观十四年（640 年）太宗养女文成公主入藏嫁松赞干布，行至赤岭，取出父母所赐"日月宝镜"（镜中可见长安），悲愤摔镜，镜化青海湖；她的泪水汇成<b>倒淌河</b>——中国少数自东向西流的河之一。"赤岭"由此改名<b>日月山</b>。'],
+    ['看点','<b>二郎剑</b>是官方核心景区（旧称 151 基地，因距西宁 151 公里），深入湖中形如半岛，看湖最近。7 月中至 8 月中环湖油菜花与碧水蓝天撞色，是它最美的季节。黑马河则是公认<b>最佳日出观测点</b>——太阳从湖平面升起。']
+   ],
+   anec:'<b>"措温布"与"青海"：</b>青海省是中国唯一以湖命名的省。这片水面在汉文典籍里曾被称"西海""仙海""鲜水"，北魏郦道元《水经注》已记其大。'} ,
+  {cat:'cul',name:'塔尔寺（可选）· 先有塔 后有寺',hook:'格鲁派创始人宗喀巴的诞生地，酥油花是这里的一绝。',
+   facts:[['诞生','宗喀巴 1357'],['建塔','1379'],['建寺','1583'],['艺术','酥油花·壁画·堆绣']],
+   secs:[
+    ['沿革','藏传佛教<b>格鲁派（黄教）六大寺</b>之一，是<b>宗喀巴大师</b>（1357–1419）诞生地。宗喀巴整顿戒律、改戴黄帽（区别于宁玛派红帽），创格鲁派，被称为"第二佛陀"，其两大弟子即后来的达赖与班禅转世系统。<b>"先有塔，后有寺"</b>——1379 年其母按子所嘱建莲聚塔，1583 年三世达赖主持建寺，因塔成名"塔尔寺"。'],
+    ['看点','<b>艺术三绝</b>：酥油花（彩色酥油塑佛像人物，正月十五灯会最盛，匠人须在冰水中塑以防融化）；壁画（矿物颜料）；堆绣（绸缎剪贴、填棉絮的立体唐卡）。寺前广场八座白塔为<b>八宝如意塔</b>，纪念释迦牟尼八相成道。']
+   ],
+   anec:'<b>宗喀巴不归：</b>宗喀巴 16 岁赴藏求学，终生未归故乡。其母寄信盼归，他回信附自画像与狮子吼佛像，嘱"若能建塔，见像如见我"。塔尔寺便始于一个母亲对儿子的思念。'}
+ ],
+ food:[
+  {dish:'藏式手抓 · 糌粑 · 酥油茶',shop:'黑马河 / 江西沟沿线藏餐家庭餐馆',
+   note:'湖边餐饮选择少、价偏高，简单吃即可；可问客栈要酥油茶配青稞饼，暖身抗高反。人均 40–60。',
+   src:'马蜂窝经验帖'}
+ ],
+ hotel:{area:'黑马河 / 江西沟 湖边客栈民宿（条件简陋，为看日出）',
+   recs:[{n:'青海湖·黑马河湖景民宿（推窗见湖）',p:'~350/间',note:'步行 5–10 分钟到湖边，看日出最近'},
+         {n:'黑马河镇经济宾馆',p:'~280/间',note:'评分优先看"卫生 / 供暖 / 热水"'}], budget:'500–700'},
+ cost:{fuel:214,toll:70,hotel:600,food:300,tickets:360,other:120},
+ climate:{tmax:'22',tmin:'9',humid:'65',uv:'11',sunrise:'06:36',sunset:'20:15',note:'白天 20–25℃，夜间 8–12℃，紫外线指数爆表，午后多短阵雨'}
+},
+{
+ n:4, date:'2026-08-11', wk:'周二', from:'黑马河', to:'大柴旦', dist:'380 km', drive:'约 5 h + 游览', intensity:'mid',
+ tag:'天空之镜', lat:37.852, lon:95.310, altM:3140, altLabel:'3,140 m',
+ route:'黑马河看日出 → 茶卡镇（茶卡盐湖）→ G3011 方向 → 大柴旦',
+ timeline:[
+  ['06:30','黑马河看日出（提前查精确时刻），青海湖最美日出'],
+  ['08:00','出发往茶卡镇（约 150km）'],
+  ['10:00','茶卡盐湖"天空之镜"，中午前后光线最好、最出片'],
+  ['15:00','出发往大柴旦（约 230km 戈壁路）'],
+  ['18:30','抵大柴旦入住']
+ ],
+ attractions:[
+  {cat:'geo',name:'茶卡盐湖 · 天空之镜',hook:'脚下是盐，头顶是天，无风的时候，盐湖把整个天空翻过来给你看。',
+   facts:[['海拔','3,059 m'],['储量','盐 ≥4.5 亿吨'],['开采史','2000 余年（西汉起）'],['命名','藏语"盐池"']],
+   secs:[
+    ['地质','位于柴达木盆地东缘、海西州乌兰县，海拔 3059 米。"茶卡"是藏语"<b>盐池</b>"之意。湖面约 105 平方公里，已探明盐储量 <b>4.5 亿吨</b>以上，可供全国人民食用约 80 年。它是<b>蒸发岩盐湖</b>：古湖盆气候干旱、蒸发极强，盐分浓缩结晶，湖面结一层厚约 4 米的白色晶盐，其下为卤水，水深仅及踝膝。'],
+    ['人文','开采史可上溯<b>西汉</b>，《汉书》记"青盐"。茶卡盐粒大、质纯、易采，是食盐，也提取镁、锂、锶。窄轨<b>小火车</b>原为运盐而修，今改观光，深入湖心 4–5 公里。'],
+    ['看点','"<b>天空之镜</b>"成因：无风时湖面如镜，倒映天空、雪山、人影；风起则镜面碎裂。<b>最佳时段是中午前后</b>，光线足、倒影稳；雨后或微雨时镜面更平整。下湖前买<b>鞋套</b>或一次性拖鞋，防盐腐蚀皮肤；红色或亮色衣裙最出片。'],
+    ['贴士','茶卡分一期（天空之镜，老景区）与天空壹号（新景区，多盐雕），一期更经典。紫外线极强，墨镜、防晒、宽沿帽必备。']
+   ],
+   anec:'<b>茶卡之外：</b>柴达木盆地遍布盐湖——察尔汗、大柴旦、东台吉乃尔，各有色彩。下一站大柴旦的翡翠湖，正是其中一处被自驾者带火的工业采盐遗迹。'} ,
+  {cat:'geo',name:'大柴旦翡翠湖（可选）· 矿坑里的调色盘',hook:'比茶卡人少，色彩更野——一汪一色，是化工厂留下的意外之美。',
+   facts:[['原貌','化工厂采盐矿坑'],['海拔','≈3,140 m'],['成色','钾·镁·锂浓度差异'],['所在地','柴达木盆地']],
+   secs:[
+    ['地质','位于大柴旦镇西南约 8 公里，原为<b>大柴旦化工厂</b>采盐遗留的若干矿坑。地下水与卤水渗入，因含钾、镁、锂浓度不同、水深不一，加之天空反射，呈现翠绿、湖蓝、明黄等色块，如翡翠散落戈壁。'],
+    ['人文','柴达木是中国四大盆地之一，海拔 2600–3000 米，矿产极富（钾盐、锂、石油、天然气），称"<b>祖国聚宝盆</b>"。"柴达木"蒙古语意为"辽阔之原"。2018 年前后被自驾者带火，比茶卡人少、色彩更丰富。']
+   ],
+   anec:'<b>意外之美：</b>翡翠湖是工业采盐的"副产品"——人退后，矿坑蓄水、矿质生色，荒原自己长出了风景。'}
+ ],
+ food:[
+  {dish:'烤羊肉 · 西北面食',shop:'大柴旦镇夜市 / 清真餐馆',
+   note:'镇小餐饮有限，烤羊排、炒面片、酸奶，简单实惠。人均 40–60。',
+   src:'小红书经验帖'}
+ ],
+ hotel:{area:'大柴旦镇（镇小，8 月极紧，务必提前订）',
+   recs:[{n:'大柴旦梦之旅 / 海西商务酒店',p:'~320/间',note:'镇上口碑中上'},
+         {n:'大柴旦 民宿客栈',p:'~260/间',note:'评价看"热水 / 卫生"'}], budget:'550–700'},
+ cost:{fuel:325,toll:30,hotel:620,food:280,tickets:240,other:30},
+ climate:{tmax:'20',tmin:'6',humid:'45',uv:'11',sunrise:'06:57',sunset:'20:05',note:'夜间 5–10℃，午后多大风，紫外线极强'}
+},
+{
+ n:5, date:'2026-08-12', wk:'周三', from:'大柴旦', to:'敦煌', dist:'540 km', drive:'约 7 h', intensity:'mid',
+ tag:'当金山 · 鸣沙山', lat:40.143, lon:94.663, altM:1200, altLabel:'1,200 m',
+ route:'大柴旦 → 当金山口（3,648m 长下坡）→ 阿克塞 → 敦煌 → 傍晚鸣沙山月牙泉',
+ timeline:[
+  ['07:30','出发前在大柴旦<b>加满油</b>，中途服务区间距大、部分无信号'],
+  ['08:00—13:00','翻当金山（垭口多侧风、长下坡，低档控速防刹车过热）'],
+  ['14:00','抵敦煌，入住、避正午高温'],
+  ['19:00','入园鸣沙山月牙泉，看日落（约 20:40）与星空'],
+  ['夜','沙洲夜市宵夜']
+ ],
+ attractions:[
+  {cat:'geo',name:'当金山口 · 柴达木的西大门',hook:'这是从青海高原跌落到河西走廊的那道门槛——翻过它，丝路就在脚下。',
+   facts:[['位置','阿尔金 × 祁连交汇'],['海拔','垭口 ≈3,648 m'],['古道','丝绸之路青海道'],['风险','高反 · 大风 · 长下坡']],
+   secs:[
+    ['地质','<b>阿尔金山</b>与<b>祁连山</b>西端在此交汇，G2151 柳格高速经垭口翻越，海拔约 3648 米。它是从柴达木盆地（青海海西）进入河西走廊（甘肃敦煌）的天然门户——翻过去，海拔骤降到一千余米，地貌从高原荒漠变为戈壁绿洲。阿尔金山是中国最大的高山自然保护区之一（藏野驴、野牦牛）；<b>祁连</b>是匈奴语"天"之意，"祁连山"即天山。'],
+    ['人文','南北朝时河西走廊战乱频仍，中原通西域的商僧改走<b>"青海道"（吐谷浑道）</b>——自青海湖经柴达木、翻当金山至敦煌。东晋高僧<b>法显</b>、北魏<b>宋云</b>西行求法，或经此路。'],
+    ['驾驶','垭口多大风与侧风；山口以西是漫长下坡到敦煌。<b>低档位控速</b>、避免长踩刹车导致热衰减；高反体质者备氧气。山口常起云雾，能见度骤降，开雾灯。']
+   ],
+   anec:'<b>两山之名：</b>阿尔金，蒙古语"有柏树"；祁连，匈奴语"天"。两座以游牧民族语言命名的山脉，夹着这条被汉藏商队踩了千年的隘口。'} ,
+  {cat:'his',name:'鸣沙山 · 月牙泉 · 沙水共生的千年谜',hook:'山会唱歌，泉千年不涸——沙漠里最不可能的共生，在这里延续了将近两千年。',
+   facts:[['沙山','东西 40 km'],['泉形','长 ~218m 弯月'],['记载','汉"沙井" 清"月牙泉"'],['海拔','1,650 m']],
+   secs:[
+    ['地质','<b>鸣沙山</b>东西长 40 公里、南北宽 20 公里，最高海拔 1650 米，沙丘相对高百米以上，以石英为主。晴日滑沙，沙粒摩擦共振作响，如雷如鼓，列"<b>沙岭晴鸣</b>"为敦煌八景之一。<b>月牙泉</b>长 218 米、宽 50 米，形如弯月，汉称"沙井"、唐称"药泉"、清代始名"月牙泉"。'],
+    ['秘辛','<b>泉为何不涸、沙为何不掩？</b>奥秘在两端的配置：地下有断层补给泉水；南北高沙山使落沙沿斜坡滑回沙脊（盛行风作用），形成动态平衡——沙进则被风反推，泉得以"千年不没"。1980 年代因上游垦荒、抽水致地下水位下降，泉一度萎缩；近年限制开采、人工补水，水位回升。'],
+    ['人文','玄奘《<b>大唐西域记</b>》有记。古传"鸣沙山有三宝：铁背鱼、七星草、五色沙"，附会灵异。它是敦煌八景中"沙岭晴鸣"与"月泉晓澈"双景所在。'],
+    ['看点','<b>傍晚</b>是最佳体验：日落约 20:40，沙色由金转红，可登沙山俯瞰月牙泉全景；夜幕降临后星空极透。<b>骑骆驼</b>重现丝路驼队（约 100 元），滑沙（约 30 元）。门票实名，<b>可多次入园</b>——若有兴致，次晨再来一次。']
+   ],
+   anec:'<b>沙漠里的水位线：</b>月牙泉是敦煌生态的体温计——它萎缩或回升，记录着这片绿洲的用水与命运。'}
+ ],
+ food:[
+  {dish:'驴肉黄面 · 胡羊焖饼 · 红柳烤肉 · 李广杏皮水',shop:'沙洲夜市 · 沙洲食驿 / 顺张黄面馆（金山路，百年老店） / 达记黄面',
+   note:'小红书吃货路线：红柳烤肉 → 胡杨焖饼 → 驴肉黄面 → 沙葱牛肉饼 → 李广杏皮水。<b>顺张</b>是百年老字号，黄面浇香菇豆腐臊子，筋道鲜香。人均 60–90。',
+   src:'新浪 / 小红书敦煌美食攻略'}
+ ],
+ hotel:{area:'敦煌市区 / 沙洲夜市附近（连住 2 晚 D5–D6）',
+   recs:[{n:'敦煌沙洲夜市 全季 / 亚朵',p:'~320/间',note:'步行到夜市与鸣沙山方向'},
+         {n:'沙洲驿 / 东驿·月牙泉 精品民宿',p:'~400/间',note:'野奢风，适合拍照，提早订'}], budget:'550–700 × 2 晚'},
+ cost:{fuel:462,toll:250,hotel:650,food:350,tickets:440,other:150},
+ climate:{tmax:'37',tmin:'20',humid:'25',uv:'10',sunrise:'07:05',sunset:'20:42',note:'白天 35–38℃ 干热、偶沙尘；日落后转凉，鸣沙山建议 19:00 入园'}
+},
+{
+ n:6, date:'2026-08-13', wk:'周四', from:'敦煌', to:'嘉峪关', dist:'370 km', drive:'约 4.5 h', intensity:'mid',
+ tag:'莫高窟 · 雄关', lat:39.802, lon:98.288, altM:1500, altLabel:'1,500 m',
+ route:'莫高窟（上午）→ G30 连霍 → 嘉峪关关城（傍晚）',
+ timeline:[
+  ['08:00','按预约时间提前 30 分钟到数字展示中心，看 2 部数字电影 → 摆渡车进窟区'],
+  ['12:00','莫高窟结束（A 类约 4h / 应急票约 2h），午餐'],
+  ['13:30','出发往嘉峪关（370km，约 4.5h）'],
+  ['18:30','抵嘉峪关关城（套票含关城 + 悬壁长城 + 长城第一墩，看日落）'],
+  ['夜','大唐美食街烤肉，住嘉峪关']
+ ],
+ attractions:[
+  {cat:'his',name:'莫高窟 · 千佛洞（此行最高潮）',hook:'陈寅恪说："敦煌者，吾国学术之伤心史也。"一座凿了千年的崖壁，半部丝路艺术史，也藏着近代中国最痛的一次文物散失。',
+   facts:[['始凿','366 年 前秦'],['营造','千年（北朝—元）'],['现存','735 窟 · 壁画 4.5 万㎡'],['藏经洞','1900 王圆箓发现']],
+   secs:[
+    ['沿革','俗称千佛洞。<b>前秦建元二年（366 年）</b>，僧人<b>乐僔</b>西游至三危山，见金光万道、状若千佛，遂凿第一窟；其后法良禅师继之。最早记于武周圣历元年（698 年）李克让修龛碑。历经北凉、北魏、西魏、北周、隋、唐、五代、宋、西夏、元，<b>前后营造千年</b>，至元代渐歇。北朝流行禅观与本生故事，盛唐臻于鼎盛，元代藏传密教续凿。'],
+    ['规模','现存洞窟 <b>735 个</b>（含北区禅窟），有壁画塑像者约 492 窟；<b>壁画 45000 平方米</b>、彩塑 2415 身——若以 2 米高相接，可绵延 25 公里；如按 1 米高排列可绕地球赤道一周多。是世界上规模最大、延续时间最长、保存最完整的佛教艺术宝库。'],
+    ['工艺','壁画用<b>矿物颜料</b>：<b>青金石</b>（来自阿富汗，贵比黄金，成就飞天蓝）、朱砂、孔雀石、铅丹（年久变黑）。"飞天"在印度本为男性、有翼，传入中原后渐女性化、<b>无翼而以飘带凌空</b>，盛唐最曼妙。'],
+    ['看点','<b>九层楼第 96 窟</b>弥勒大佛（武周时期，高 35.5 米，室内最大佛像）；<b>148 窟</b>盛唐涅槃佛（长 15.8 米卧佛）；<b>257 窟</b>《九色鹿本生》（著名的九色鹿故事画）；<b>249/285 窟</b>西魏飞天；<b>57 窟</b>"美人菩萨"；<b>17 窟</b>藏经洞（洪辩法师像）。进窟前先在数字中心看《千年莫高》《梦幻佛窟》球幕电影，再看复制洞窟，是最好的打开方式。'],
+    ['贴士','A 类票含 2 部电影 + 8 个窟 + 讲解（约 4h），应急 C 类仅看 4 窟无电影。<b>窟内全程禁用闪光</b>、禁触摸。务必跟紧讲解员——洞窟不挂说明牌，无讲解等于看墙。']
+   ],
+   anec:'<b>藏经洞之殇：</b>1900 年 6 月 22 日，道士<b>王圆箓</b>（湖北麻城人）清理第 16 窟积沙时，偶然打通隔壁<b>第 17 窟藏经洞</b>，内藏公元 4–11 世纪写本经卷、绢画 5–6 万件，包括世界最早的印刷书《金刚经》（868 年，今藏大英图书馆）。1907 年<b>斯坦因</b>以 700 两银子带走约 9000 件，1908 年法国汉学家<b>伯希和</b>精挑 5000 余件精华以 600 两银子运走（今藏法国国家图书馆与吉美博物馆）——他精通中文，挑走的皆是精品中的精品。其后日本大谷光瑞、俄国奥登堡、美国华尔纳（用胶布粘走壁画）相继而来。陈寅恪 1930 年留下那句"敦煌者，吾国学术之伤心史也"，由此催生一门国际显学：<b>敦煌学</b>。'} ,
+  {cat:'his',name:'嘉峪关 · 天下第一雄关',hook:'明长城的西头到此为止。出这道关，便是"西出阳关无故人"的西域。',
+   facts:[['始建','明洪武五年 1372'],['督建','宋国公冯胜'],['构成','关城 + 悬壁长城 + 第一墩'],['历时','168 年完备']],
+   secs:[
+    ['沿革','<b>明长城西端起点</b>，与山海关"天下第一关"东西遥对。明洪武五年（1372 年），征虏将军、宋国公<b>冯胜</b>奏建关城，至嘉靖年间历时 168 年完备。长城东起辽东（或鸭绿江虎山），西止嘉峪关——这里是农耕帝国能稳定控制的西极。'],
+    ['地利','选址绝妙：南有祁连雪峰（文殊山），北有黑山，中间仅约 15 公里宽的戈壁走廊，是<b>河西走廊最窄处</b>，控扼丝路咽喉，"连陲锁钥"。'],
+    ['构成','三部分：<b>关城</b>（内城、外城、瓮城，黄土夯筑、外砖包砌，城墙高 6 米、周长 733 米，三座歇山顶城楼——柔远、光化、嘉峪关）；<b>悬壁长城</b>（1539 年肃州兵备道李涵筑于黑山石关峡，陡峭如倒挂，"丝绸古道"险段）；<b>长城第一墩</b>（讨赖河墩，1539 年，长城最西端第一座墩台，立于讨赖河峡谷 56 米悬崖上）。'],
+    ['典故','<b>"关照"的由来：</b>古人出关须领盖官印的通行文书，称"关照"——今"关照""护照""照顾"等词皆源于此。<b>"定城砖"</b>：相传工匠易开占精算用砖，最后恰剩一块，置于西瓮城门楼后檐台上，至今未动（导游必指）。<b>"击石燕鸣"</b>：以石击城墙闻燕鸣，出关前祈平安。']
+   ],
+   anec:'<b>左宗棠抬棺出关：</b>1876 年，晚清陕甘总督左宗棠以 65 岁高龄、自抬棺材出嘉峪关西征收复新疆——这座关见证过丝绸驼队，也见证过一个老人对一个王朝最后的倔强。'}
+ ],
+ food:[
+  {dish:'嘉峪关烤肉（大唐美食街）',shop:'大唐美食街各烤肉店',
+   note:'戈壁烤羊肉，瘦嫩少膻，配杏皮水或啤酒，4 人一顿约 250。人均 60。',
+   src:'本地口碑'}
+ ],
+ hotel:{area:'嘉峪关市区 大唐美食街附近',
+   recs:[{n:'嘉峪关 全季 / 如家精选',p:'~280/间',note:'近美食街，停车方便'}], budget:'500–600'},
+ cost:{fuel:316,toll:150,hotel:550,food:300,tickets:840,other:30},
+ climate:{tmax:'34',tmin:'18',humid:'30',uv:'9',sunrise:'06:43',sunset:'20:24',note:'敦煌 37℃→嘉峪关傍晚 30℃，防晒'}
+},
+{
+ n:7, date:'2026-08-14', wk:'周五', from:'嘉峪关', to:'银川', dist:'750 km', drive:'约 9 h', intensity:'hard',
+ tag:'丹霞 · 王陵', lat:38.487, lon:106.231, altM:1100, altLabel:'1,100 m',
+ route:'嘉峪关 → 张掖七彩丹霞（上午）→ G30 武威 → G2012/G6 中卫 → 银川（傍晚西夏王陵）',
+ timeline:[
+  ['08:00','嘉峪关出发，G30 到张掖（220km，约 2.5h）'],
+  ['10:30','张掖七彩丹霞（含观光车约 80 元/人，上午光线好，4 个观景台，2–3h）'],
+  ['13:30','出发往银川（经武威、中卫，约 530km，6h）'],
+  ['19:30','抵银川，赶西夏王陵日落（开放到约 18:00，若来不及改次晨顺路）'],
+  ['夜','银川老毛手抓 / 辣糊糊，住兴庆区']
+ ],
+ attractions:[
+  {cat:'geo',name:'张掖七彩丹霞 · 彩虹丘陵',hook:'一亿年前的湖底，被造山运动翻起来、被风雨雕出彩虹——这是地球露出的彩色截面。',
+   facts:[['地质','彩色丘陵 + 丹霞'],['生成','白垩纪—新近纪 ≈1 亿年'],['命名','1928 冯景兰'],['地位','中国最美丹霞之一']],
+   secs:[
+    ['地质','位于祁连山北麓、临泽县倪家营，距张掖市区 40 公里。中国唯一的<b>丹霞地貌与彩色丘陵复合区</b>，约 50 平方公里。这里的红色碎屑岩（砂岩、泥岩、砾岩）形成于<b>白垩纪至新近纪</b>（约 1 亿年前），当时是湖泊盆地；后喜马拉雅造山运动抬升、祁连山隆起，流水切割、风化、重力崩塌，出露层层彩色纹理。'],
+    ['色彩','赤红、橙、黄、绿、灰、白交错，因<b>矿物</b>而异——铁红、锰黑与绿、钙白——加沉积环境周期性变化。<b>雨后或日出日落</b>斜射时色彩最浓。它被《中国国家地理》评为"中国最美的七大丹霞"之一。'],
+    ['命名','"<b>丹霞</b>"一名由地质学家<b>冯景兰</b>1928 年在广东丹霞山命名，取"色如渥丹，灿若明霞"之意。张掖丹霞严格说以彩色丘陵为主，岩层近水平、纹理层理丰富，与南方陡崖式丹霞各有其美。'],
+    ['看点','主要观景台：七彩神仙台、七彩屏、睡美人、刀山火海。<b>日出、日落斜射</b>光线最佳。切勿踩踏岩体——<b>丹霞表面结皮极脆弱，一脚破坏需百年恢复</b>，景区屡有"刻字"伤岩事件。'],
+    ['人文','张掖：汉武帝元鼎六年（前 111 年）置<b>张掖郡</b>，取"<b>张国臂掖，以通西域</b>"（断匈奴之臂、张中国之掖）之意。河西走廊四郡（武威、张掖、酒泉、敦煌）之一，丝路重镇，"<b>金张掖、银武威</b>"。']
+   ],
+   anec:'<b>"踩不坏的风景"是错觉：</b>丹霞的彩色来自一层几毫米厚的氧化结皮，一旦踩破，风蚀水冲便层层剥落——那一道彩虹，一万年也长不回。'} ,
+  {cat:'his',name:'西夏王陵 · 东方金字塔',hook:'一个被蒙古铁骑从地球上抹掉的王朝，把它的金字塔留在了贺兰山下。',
+   facts:[['王朝','西夏 1038–1227'],['族属','党项（羌系）'],['遗存','9 帝陵 + 253 陪葬墓'],['发现','1972 军事施工']],
+   secs:[
+    ['沿革','<b>西夏</b>由<b>党项族</b>（羌系一支）建立，拓跋氏（唐赐李姓、宋赐赵姓）。<b>李元昊</b>（景宗）于 1038 年在兴庆府（今银川）称帝，国号"大白高国"。前期与北宋百年战争（好水川、三川口之役），后期与金并立，1227 年被<b>成吉思汗</b>所灭——相传成吉思汗灭夏前病死六盘山，遗嘱秘不发丧、屠城中兴府，西夏典籍与王陵遭大规模毁灭。'],
+    ['文字','李元昊命大臣<b>野利仁荣</b>于 1036 年创制<b>西夏文</b>，六千余字，仿汉字结构、笔画繁复，"字字皆如汉字、字字读不出来"，称"国书"。1908 年俄国人<b>科兹洛夫</b>从黑水城（额济纳）劫走大批西夏文献，今藏圣彼得堡，"西夏学"由此成显学。'],
+    ['陵寝','王陵在银川西郊<b>贺兰山东麓</b>，南北 10 公里、东西 4 公里，约 50 平方公里，现存<b>9 座帝陵 + 253 座陪葬墓</b>。每座帝陵由阙台、神墙、碑亭、角台、外城、献殿、墓道、<b>夯土陵台</b>（八角五级）组成，吸收宋陵制度又有党项特色。陵塔为实心夯土、戈壁上形如金字塔，故称"<b>东方金字塔</b>"。1972 年兰州军区施工偶然发现，出土鎏金铜牛、石马、西夏文残碑。'],
+    ['看点','日落时分，夯土陵塔的剪影与贺兰山轮廓相叠，最为苍凉。开放可参观的是<b>三号陵</b>（推测为李元昊泰陵）。陵区有西夏博物馆，看西夏文残碑、鎏金铜牛复制品。'],
+    ['人文','<b>贺兰山</b>南北走向、南北长 200 余公里，是宁夏平原天然屏障，挡西北风沙与游牧骑兵。"贺兰"一说蒙古语"骏马"（山形如骏马）。岳飞《满江红》"<b>踏破贺兰山缺</b>"即指此。']
+   ],
+   anec:'<b>李元昊之死：</b>元昊雄才大略、立国制文，晚年却因夺太子宁令格之妻（没藏氏），被亲生儿子所杀，年 46。一个王朝的开创者死于家乱，宛如西夏命运的缩影。'}
+ ],
+ food:[
+  {dish:'手抓羊肉（热手抓最鲜）',shop:'老毛手抓（鼓楼总店，解放东街 93 号） / 国强手抓（西夏区北京西路 237 号 / 贵宾楼店）',
+   note:'银川手抓约 118 元/斤、半斤起点；选盐池或吴忠的 13 个月小公羊，瘦而不膻。蘸醋蒜。<b>热手抓</b>最能吃出鲜。人均 80–110。',
+   src:'小红书 / 高德美食榜'},
+  {dish:'辣糊糊 · 羊杂碎 · 八宝茶',shop:'同心春（富宁街） / 怀远夜市',
+   note:'辣糊糊是宁夏版"麻辣串"，红辣椒面糊底、香而不烈；羊杂碎浇原汤配烧饼，是银川人的清晨；八宝茶（桂圆红枣枸杞冰糖）解腻。',
+   src:'B 站 / 马蜂窝'}
+ ],
+ hotel:{area:'银川兴庆区（近鼓楼 / 西夏王陵方向）',
+   recs:[{n:'银川兴庆 全季 / 亚朵',p:'~300/间',note:'近老毛手抓鼓楼店'},
+         {n:'如家商旅（兴庆区）',p:'~250/间',note:'性价比'}], budget:'550–650'},
+ cost:{fuel:641,toll:340,hotel:600,food:350,tickets:640,other:40},
+ climate:{tmax:'32',tmin:'19',humid:'50',uv:'9',sunrise:'06:16',sunset:'19:48',note:'张掖 32℃→银川夜间 20℃，干热防晒'}
+},
+{
+ n:8, date:'2026-08-15', wk:'周六', from:'银川', to:'莘县·家', dist:'1,050 km', drive:'约 11.5 h', intensity:'hard',
+ tag:'返程', lat:38.487, lon:106.231, altM:1100, altLabel:'1,100 m',
+ route:'银川 → G65/G20 榆林 → 太原 → 石家庄 → G3 济南 → 聊城 → 莘县',
+ timeline:[
+  ['06:00','出发，2 司机轮换，避开早高峰'],
+  ['12:00','太原附近服务区午饭、第二次加油'],
+  ['18:00—20:00','抵家莘县，行程圆满']
+ ],
+ attractions:[
+  {cat:'cul',name:'返程 · 归途',hook:'五千里路云和月，从华北平原到青藏高原再到大漠戈壁——能平安到家，就是最好的句点。',
+   facts:[['全程','≈5,200 km'],['跨海拔','50m ↔ 3,648m'],['穿越','中原·高原·戈壁·走廊·塞上']],
+   secs:[
+    ['小结','全程约 5200 公里，跨越海拔 50 米到 3648 米、贯穿中原、青藏高原、柴达木戈壁、河西走廊、宁夏平原五种地貌。<b>务必 2 人轮换</b>，每 2 小时进服务区休息。'],
+    ['备选','若末段太累，可改走<b>减负方案</b>（详见 02_减负备选方案.docx）：D7 改宿榆林、D8 仅 700 公里，更从容安全。']
+   ],
+   anec:''}
+ ],
+ food:[
+  {dish:'服务区简餐 / 自带干粮',shop:'沿途高速服务区',
+   note:'返程以赶路为主，早餐酒店含、午晚服务区或自带零食，4 人一天约 200。',src:'—'}
+ ],
+ hotel:{area:'返家，不住', recs:[{n:'——',p:'—',note:'安全到家'}], budget:'0'},
+ cost:{fuel:898,toll:470,hotel:0,food:200,tickets:0,other:40},
+ climate:{tmax:'32',tmin:'22',humid:'55',uv:'8',sunrise:'05:54',sunset:'19:20',note:'全程晴热 30–33℃，注意防疲劳，2 司机轮换'}
+}
+];
+
+/* ================= TIPS & SOURCES ================= */
+const TIPS={
+1:['早 6:30 出发，赶在 7:00 前过郑州，避开早高峰','西安绕城高速过境即可，别下口浪费半小时','天水麻辣烫哈海英常排队 1–2 小时，错峰或直接去四合院麻辣烫'],
+2:['麦积山 8:00 先进窟——窟区朝阳、午后暴晒，趁凉看','凌空栈道恐高者可只看低区，重点第 4、133 窟（小沙弥微笑）','兰州只作过路午餐，吃碗牛肉面即走，别停留'],
+3:['青海湖边拍照穿白 / 红 / 黄亮色最出片','午后常起短阵雨，随身带一次性雨衣','黑马河住宿条件简陋——自带洗漱用品和厚外套，别期望太高','二郎剑 90 元可省，沿 G109 免费段也能贴近湖边'],
+4:['茶卡盐湖中午前后进，光线最好、倒影最稳；戴墨镜','下湖穿一次性鞋套或旧拖鞋，别走太远——盐壳锋利','黑马河日出后即出发，避开茶卡午后大风','大柴旦镇小、8 月住宿极紧，务必提前订'],
+5:['<b>出大柴旦前加满油</b>，当金山段服务区间距大、部分无信号','当金山长下坡挂低档控速，防刹车过热；垭口多侧风','鸣沙山 19:00 后进，带防沙鞋套、手机防沙袋，日落约 20:40','沙洲夜市货比三家，避开门口最贵的摊'],
+6:['莫高窟提前 30 分钟到数字中心，先看 2 部电影再进窟','全程跟紧讲解员——窟内禁用闪光、禁触摸，无讲解等于看墙','应急票看 4 窟约 2h；A 类票看 8 窟约 4h 较累，备水','嘉峪关需"嘉峪关文物景区"公众号提前 1–7 天分时预约'],
+7:['丹霞上午或日落斜射最美，雨后色彩更浓','4 个观景台须坐观光车按序；切勿踩踏岩体，一脚破坏百年难复','今日长途 750km，备零食红牛，2 司机轮换','西夏王陵若来不及，可改 D8 清晨顺路'],
+8:['返程最长日 1050km，务必 2 司机轮换、每 2h 进服务区','备红牛、咖啡、风油精防疲劳；午饭后最困，务必换人开','走银川—榆林—太原—石家庄—济南一线，避开山区夜间','安全到家就是满分']
+};
+const GSRC={
+'天水 · 羲皇故里':'天水市博物馆；《史记·秦本纪》（秦先祖非子牧马）；伏羲庙景区',
+'麦积山石窟 · 东方雕塑馆':'麦积山石窟艺术研究所官网；冯国瑞《麦积山石窟志》(1941)；《中国石窟·天水麦积山》文物出版社',
+'兰州 · 黄河穿城':'兰州市志；中山铁桥 1907 铭牌（德国泰来洋行承建）；《中国桥梁史》',
+'青海湖 · 措温布（青色的海）':'中国科学院青海盐湖研究所；《中国国家地理》2006 年第 3 期青海湖专集；青藏高原研究所',
+'塔尔寺（可选）· 先有塔 后有寺':'塔尔寺管理委员会官网；喀森·格桑《塔尔寺》；中国藏学研究中心',
+'茶卡盐湖 · 天空之镜':'《中国盐湖志》科学出版社；茶卡盐湖景区公告；乌兰县志',
+'大柴旦翡翠湖（可选）· 矿坑里的调色盘':'大柴旦行政委员会；《柴达木盆地》科学出版社；中科院青海盐湖所',
+'当金山口 · 柴达木的西大门':'《中国国家地理》祁连山专辑；玄奘《大唐西域记》；青海省志',
+'鸣沙山 · 月牙泉 · 沙水共生的千年谜':'敦煌研究院；玄奘《大唐西域记》；王进玉《敦煌学大辞典》',
+'莫高窟 · 千佛洞（此行最高潮）':'敦煌研究院 dhafund.cn；樊锦诗《敦煌石窟全集》；荣新江《敦煌学十八讲》；陈寅恪《敦煌劫余录序》(1930)',
+'嘉峪关 · 天下第一雄关':'嘉峪关长城博物馆；《明史·兵志》；《中国长城志》',
+'张掖七彩丹霞 · 彩虹丘陵':'《中国国家地理》"中国最美丹霞"评选；彭华《丹霞地貌学》；张掖国家地质公园',
+'西夏王陵 · 东方金字塔':'宁夏文物考古研究所《西夏王陵发掘报告》；李范文《西夏通史》；史金波《西夏学教程》',
+'返程 · 归途':'—'
+};
+const GIMG={
+'莫高窟 · 千佛洞（此行最高潮）':'mogao',
+'鸣沙山 · 月牙泉 · 沙水共生的千年谜':'mingsha',
+'麦积山石窟 · 东方雕塑馆':'maijishan',
+'青海湖 · 措温布（青色的海）':'qinghaihu',
+'塔尔寺（可选）· 先有塔 后有寺':'taer',
+'茶卡盐湖 · 天空之镜':'chaka',
+'大柴旦翡翠湖（可选）· 矿坑里的调色盘':'feicui',
+'当金山口 · 柴达木的西大门':'dangjinshan',
+'嘉峪关 · 天下第一雄关':'jiayuguan',
+'张掖七彩丹霞 · 彩虹丘陵':'danxia',
+'西夏王陵 · 东方金字塔':'xixia'
+};
+
+/* ================= ROUTING ================= */
+const $=s=>document.querySelector(s);
+let homeMap=null,dayMap=null;
+function go(hash){location.hash=hash;}
+function router(){
+  const h=location.hash.replace(/^#\/?/,'');
+  $('#home').classList.add('hidden');$('#day').classList.add('hidden');$('#budget').classList.add('hidden');$('#footNav').innerHTML='';
+  if(h==='budget'){renderBudget();}
+  else {const m=h.match(/day\/(\d+)/); if(m){renderDay(+m[1]-1);} else {renderHome();}}
+  window.scrollTo({top:0});
+  reveal();markTab();
+}
+function markTab(){
+  const h=location.hash;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',h===t.dataset.h));
+}
+function buildTabs(){
+  const c=$('#tabs');
+  let html=`<div class="tab" data-h="" onclick="go('')"><b>全程</b></div>`;
+  html+=`<div class="tab" data-h="#/budget" onclick="go('#/budget')">预算</div>`;
+  DAYS.forEach(d=>{html+=`<div class="tab" data-h="#/day/${d.n}" onclick="go('#/day/${d.n}')"><b>${String(d.n).padStart(2,'0')}</b>${d.wk}</div>`;});
+  c.innerHTML=html;
+}
+
+/* ---- elevation profile ---- */
+function buildProfile(svgEl,fromIdx,toIdx,w,h,opts={}){
+  const seg=ELEV.slice(fromIdx,toIdx+1);
+  const maxKm=5110,maxAlt=3700,minAlt=0;
+  const padL=46,padR=20,padT=24,padB=70;
+  const W=w||(svgEl.clientWidth||1100),H=h||(svgEl.clientHeight||320);
+  if(!W||!H)return;
+  const X=km=>padL+(km/maxKm)*(W-padL-padR);
+  const Y=al=>H-padB-((al-minAlt)/(maxAlt-minAlt))*(H-padT-padB);
+  let pts=seg.map(p=>[X(p[1]),Y(p[2]),p]);
+  let d=`M ${pts[0][0]},${H-padB} `+pts.map(p=>`L ${p[0]},${p[1]}`).join(' ')+` L ${pts[pts.length-1][0]},${H-padB} Z`;
+  let line='M '+pts.map(p=>`${p[0]},${p[1]}`).join(' L ');
+  let grid='';
+  [1000,2000,3000].forEach(al=>{grid+=`<line class="grid" x1="${padL}" y1="${Y(al)}" x2="${W-padR}" y2="${Y(al)}"/><text class="glab" x="${padL-8}" y="${Y(al)+3}" text-anchor="end">${al}m</text>`;});
+  const altBand=`<rect x="${padL}" y="${Y(3700)}" width="${W-padL-padR}" height="${Y(3000)-Y(3700)}" fill="#b23a2e" opacity="0.055"/><text x="${W-padR-4}" y="${Y(3550)}" text-anchor="end" class="glab" style="fill:#b23a2e;font-style:italic">3,000m+ 高原反应区</text>`;
+  let xaxis=`<line x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}" stroke="#1b1815" stroke-width="1"/>`;
+  [0,1000,2000,3000,4000,5000].forEach(km=>{const x=X(km);xaxis+=`<line x1="${x}" y1="${H-padB}" x2="${x}" y2="${H-padB+4}" stroke="#1b1815" stroke-width="1"/><text class="xlab" x="${x}" y="${H-padB+16}" text-anchor="middle">${km===0?'起点':km.toLocaleString()}</text>`;});
+  xaxis+=`<text class="xlab" x="${W-padR}" y="${H-padB+16}" text-anchor="end" style="fill:#9a7730">km 累计里程 →</text><text class="xlab" x="${padL-8}" y="${H-padB+16}" text-anchor="end" style="fill:#9a7730">海拔↑</text>`;
+  let dots='';
+  pts.forEach((p,i)=>{
+    const e=p[2],day=e[3],hi=e[2]>=3600;
+    const ly=H-padB+30;
+    dots+=`<circle class="pt" onclick="go('#/day/${dayToNum(day)}')" cx="${p[0]}" cy="${p[1]}" r="${hi?5:4.2}" fill="${hi?'#b23a2e':'#fbf3da'}" stroke="#1b1815" stroke-width="${hi?2:1.5}"><title>${e[0]} · ${e[2]}m · 进入 Day ${dayToNum(day)}</title></circle>`;
+    dots+=`<text class="nm" x="${p[0]}" y="${ly}" text-anchor="end" transform="rotate(-30 ${p[0]} ${ly})" style="fill:${e[2]>=3000?'#b23a2e':'#4a4339'}">${e[0]}</text>`;
+    if(hi)dots+=`<text class="xlab" x="${p[0]}" y="${p[1]-11}" text-anchor="middle" style="fill:#b23a2e;font-weight:700;font-size:11px">${e[2].toLocaleString()}m</text>`;
+  });
+  svgEl.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svgEl.innerHTML=`
+    <defs>
+      <linearGradient id="elevArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b5d86" stop-opacity=".42"/><stop offset="100%" stop-color="#2b5d86" stop-opacity=".06"/></linearGradient>
+      <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ead9b0" stop-opacity=".5"/><stop offset="100%" stop-color="#ead9b0" stop-opacity="0"/></linearGradient>
+    </defs>
+    ${grid}${altBand}
+    <path class="land" d="M ${padL},${H-padB} L ${W-padR},${H-padB} Z" style="fill:url(#sand)"/>
+    <path class="area" d="${d}"/>
+    <path class="line" d="${line}"/>
+    ${dots}${xaxis}`;
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const ln=svgEl.querySelector('.line');const L=ln.getTotalLength?.()||0;
+    ln.style.strokeDasharray=L;ln.style.strokeDashoffset=L;
+    requestAnimationFrame(()=>{ln.style.transition='stroke-dashoffset 1.6s ease';ln.style.strokeDashoffset=0;});
+  }
+}
+function dayToNum(lbl){if(lbl==='起')return 1;const m=lbl.match(/\d+/);return m?+m[0]:1;}
+
+/* ---- home ---- */
+function renderHome(){
+  $('#home').classList.remove('hidden');
+  buildProfile($('#heroProfile'),0,ELEV.length-1,0,320,{});
+  let g='';
+  DAYS.forEach(d=>{const I=INMAP[d.intensity];
+    g+=`<div class="daycard" onclick="go('#/day/${d.n}')">
+      <span class="bdg">${d.dist}</span>
+      <div class="dn">${String(d.n).padStart(2,'0')}</div>
+      <div class="dd">${d.date.slice(5)} · ${d.wk}</div>
+      <div class="dr">${d.from} → ${d.to}</div>
+      <div class="ds">${d.drive} · ${d.tag}</div>
+      <div class="tags"><span class="tag ${I[0]}"><span class="dot ${I[0]}"></span>${I[1]}</span><span class="tag">${d.altLabel}</span></div>
+    </div>`;});
+  $('#dayGrid').innerHTML=g;
+  setTimeout(()=>{if(homeMap)homeMap.invalidateSize();else initHomeMap();},30);
+}
+function initHomeMap(){
+  homeMap=L.map('homeMap',{scrollWheelZoom:false}).setView([37,103],4);
+  addTiles(homeMap);
+  const order=[0,1,2,3,4,5,6,7,8,9,10,11];
+  const dayLL={'莘县':[36.025,115.442],'天水':[34.581,105.725],'西宁':[36.617,101.798],'黑马河':[36.733,99.978],'茶卡':[36.744,99.080],'大柴旦':[37.852,95.310],'当金山':[38.23,95.30],'敦煌':[40.143,94.663],'嘉峪关':[39.802,98.288],'张掖':[38.926,100.449],'银川':[38.487,106.231],'家':[36.025,115.442]};
+  const routeLL=order.map(i=>dayLL[ELEV[i][0]]);
+  const homeMain=L.polyline(routeLL,{color:'#1c3f5e',weight:4,opacity:.45,dashArray:'7,7'}).addTo(homeMap).bindTooltip('主方案 · 加载真实路线中…');
+  const alt=[[39.802,98.288],[38.926,100.449],[37.515,105.197],[38.285,109.734],[36.025,115.442]];
+  L.polyline(alt,{color:'#c98a3e',weight:4,opacity:.85,dashArray:'9,8'}).addTo(homeMap).bindTooltip('减负末段 · 经中卫 / 榆林');
+  const pop={0:'起·终 莘县',1:'D1 天水',2:'D2 西宁',3:'D3 黑马河',4:'D4 茶卡',5:'D4 大柴旦',6:'D5 当金山',7:'D5 敦煌',8:'D6 嘉峪关',9:'D7 张掖',10:'D7 银川',11:'D8 家'};
+  order.forEach(i=>{L.circleMarker(dayLL[ELEV[i][0]],{radius:6,color:'#1b1815',weight:1.5,fillColor:'#fbf3da',fillOpacity:1}).addTo(homeMap).bindPopup(`<b>${pop[i]}</b><br>${ELEV[i][0]} · ${ELEV[i][2]}m`);});
+  L.circleMarker(dayLL['当金山'],{radius:6,color:'#b23a2e',fillColor:'#b23a2e',fillOpacity:.85}).addTo(homeMap).bindPopup('当金山口 3648m · 高反风险');
+  homeMap.fitBounds(routeLL,{padding:[28,28]});
+  fetchRoute(routeLL).then(rt=>{ if(rt&&homeMap){ homeMain.setStyle({opacity:0}); L.polyline(rt,{color:'#1c3f5e',weight:5,opacity:.9}).addTo(homeMap).bindTooltip('主方案 · 真实导航路线（OSRM）'); } });
+}
+function addTiles(m){
+  const base={
+    "高德·矢量":L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{subdomains:['1','2','3','4'],maxZoom:18,attribution:'© 高德'}),
+    "高德·卫星":L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',{subdomains:['1','2','3','4'],maxZoom:18,attribution:'© 高德'}),
+    "OSM":L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'})
+  };
+  base["高德·卫星"].addTo(m);
+  L.control.layers(base).addTo(m);
+}
+
+/* ---- day ---- */
+function renderDay(idx){
+  const d=DAYS[idx];const I=INMAP[d.intensity];
+  $('#day').classList.remove('hidden');
+  let html=`
+  <div class="day-head">
+    <div class="eyebrow">Day ${String(d.n).padStart(2,'0')} / 08 · ${d.date} · ${d.wk}</div>
+    <div class="row">
+      <div class="bignum">${String(d.n).padStart(2,'0')}</div>
+      <div class="meta">
+        <h2>${d.from} <span style="color:var(--och);font-weight:400">→</span> ${d.to}</h2>
+        <div class="sub">${d.route}</div>
+        <div class="kpis">
+          <div class="kpi"><span class="l">里程</span><br><span class="v">${d.dist}</span></div>
+          <div class="kpi"><span class="l">驾驶</span><br><span class="v">${d.drive}</span></div>
+          <div class="kpi"><span class="l">海拔</span><br><span class="v">${d.altLabel}</span></div>
+          <div class="kpi"><span class="l">强度</span><br><span class="v" style="font-size:14px"><span class="dot ${I[0]}"></span>${I[1]}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="panel"><h3>今日路线<span class="eyebrow">Route</span></h3>
+        <div id="dayMap"></div>
+        <svg class="mini-profile" id="miniProfile" viewBox="0 0 600 100"></svg>
+      </div>
+      <div class="panel"><h3>行程安排<span class="eyebrow">Plan</span></h3>
+        <ul class="tl">${d.timeline.map(t=>`<li><span class="t">${t[0]}</span><div class="c">${t[1]}</div></li>`).join('')}</ul>
+      </div>
+      <div class="panel"><h3>景点导览<span class="eyebrow">Guide · 可作讲解底本</span></h3>
+        ${d.attractions.map(a=>guideCard(a)).join('')}
+      </div>
+      <div class="panel"><h3>今日小贴士<span class="eyebrow">Tips · 小红书 / 经验帖</span></h3>
+        <ul class="tips">${(TIPS[d.n]||[]).map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+    <div>
+      <div class="panel" id="weatherPanel"><h3>当日天气<span class="eyebrow" id="wStatus">载入实时预报…</span></h3>
+        <div id="weatherBody"></div>
+      </div>
+      <div class="panel"><h3>吃什么<span class="eyebrow">Food</span></h3>
+        ${d.food.map(f=>`<div class="eat"><h4>${f.dish}</h4><div class="shop">${f.shop}</div><p>${f.note}</p><div class="src">来源：${f.src}</div></div>`).join('')}
+      </div>
+      <div class="panel"><h3>住哪里<span class="eyebrow">Stay · 2 标间</span></h3>
+        <div class="hotel-area">分区：${d.hotel.area}<span class="route-badge">预算 ${d.hotel.budget} 元 / 晚</span></div>
+        <ul class="hotel-list">${d.hotel.recs.map(r=>`<li><span class="hp">${r.p}</span><div class="hn">${r.n}<small>${r.note}</small></div></li>`).join('')}</ul>
+      </div>
+      <div class="panel"><h3>当日花销<span class="eyebrow">4 人合计</span></h3>
+        ${costTable(d.cost)}
+      </div>
+    </div>
+  </div>`;
+  const prev=idx>0?DAYS[idx-1]:null,next=idx<7?DAYS[idx+1]:null;
+  html+=`<div class="foot-nav">
+    ${prev?`<a onclick="go('#/day/${prev.n}')"><small>← Day ${String(prev.n).padStart(2,'0')}</small><b>${prev.from} → ${prev.to}</b></a>`:'<a></a>'}
+    ${next?`<a class="r" onclick="go('#/day/${next.n}')"><small>Day ${String(next.n).padStart(2,'0')} →</small><b>${next.from} → ${next.to}</b></a>`:'<a class="r" onclick="go(\'\')"><small>Finish</small><b>返回首页</b></a>'}
+  </div>`;
+  $('#day').innerHTML=html;
+  buildDayMini(d);loadWeather(d);
+  setTimeout(()=>initDayMap(d),40);
+  reveal();
+}
+function guideCard(a){
+  const src=GSRC[a.name]||'';
+  const img=GIMG[a.name];
+  return `<article class="guide ${a.cat}">
+    ${img?`<img class="g-img" src="img/${img}.png" alt="${a.name}" loading="lazy" onerror="this.remove()">`:''}
+    <div class="g-toggle" onclick="this.parentNode.classList.toggle('open')">
+      <div class="g-cat">${catName(a.cat)}</div>
+      <h4>${a.name}</h4>
+      <p class="g-hook">${a.hook}</p>
+      <div class="g-chev"></div>
+    </div>
+    <div class="g-body">
+      <div class="g-facts">${a.facts.map(f=>`<span class="fact">${f[0]}<b>${f[1]}</b></span>`).join('')}</div>
+      ${a.secs.map(s=>`<div class="g-sec"><div class="l">${s[0]}</div><div class="b">${s[1]}</div></div>`).join('')}
+      ${a.anec?`<div class="g-anec">${a.anec}</div>`:''}
+      ${src&&src!=='—'?`<div class="g-src"><b>来源 / 参考：</b>${src}</div>`:''}
+    </div>
+  </article>`;
+}
+function catName(c){return {his:'历史 · 人文',geo:'地理 · 地质',cul:'人文 · 风物'}[c]||c;}
+function costTable(c){
+  const rows=[['油费',c.fuel],['过路费',c.toll],['住宿',c.hotel],['餐饮',c.food],['门票（4 人）',c.tickets],['其他',c.other]];
+  const sum=rows.reduce((a,r)=>a+r[1],0);
+  return `<table class="cost">${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]?r[1].toLocaleString():'—'}</td></tr>`).join('')}
+    <tr class="sum"><td>当日小计</td><td>≈ ${sum.toLocaleString()}</td></tr></table>`;
+}
+function buildDayMini(d){
+  const map={1:[[0,50],[950,1100]],2:[[950,1100],[1550,2300]],3:[[1550,2300],[1800,3200]],
+    4:[[1800,3200],[1950,3059],[2180,3140]],5:[[2180,3140],[2490,3648],[2720,1200]],
+    6:[[2720,1200],[3090,1500]],7:[[3090,1500],[3310,1500],[4060,1100]],8:[[4060,1100],[5110,50]]};
+  const seg=map[d.n]||[[0,50],[1000,1000]];
+  const svg=$('#miniProfile');if(!svg)return;
+  const W=600,H=100,padL=10,padR=10,padT=10,padB=22;
+  const maxKm=Math.max(...seg.map(p=>p[0])),minKm=Math.min(...seg.map(p=>p[0]));
+  const maxAlt=Math.max(...seg.map(p=>p[1])),minAlt=Math.min(...seg.map(p=>p[1]));
+  const rng=Math.max(maxAlt-minAlt,500);
+  const X=km=>padL+((km-minKm)/Math.max(maxKm-minKm,1))*(W-padL-padR);
+  const Y=al=>H-padB-((al-(minAlt-rng*0.1))/(rng*1.2))*(H-padT-padB);
+  let pts=seg.map(p=>[X(p[0]),Y(p[1]),p[1]]);
+  let area=`M ${pts[0][0]},${H-padB} `+pts.map(p=>`L ${p[0]},${p[1]}`).join(' ')+` L ${pts[pts.length-1][0]},${H-padB} Z`;
+  let line='M '+pts.map(p=>`${p[0]},${p[1]}`).join(' L ');
+  let dots=pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.2" fill="#fbf3da" stroke="#1b1815" stroke-width="1.4"/><text x="${p[0]}" y="${p[1]-7}" text-anchor="middle" style="font-family:'Cormorant Garamond',Georgia;font-size:10px;fill:#b23a2e;font-weight:600">${p[2]}m</text>`).join('');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.innerHTML=`<defs><linearGradient id="miniG${d.n}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b5d86" stop-opacity=".35"/><stop offset="100%" stop-color="#2b5d86" stop-opacity=".04"/></linearGradient></defs>
+    <path d="${area}" fill="url(#miniG${d.n})"/><path d="${line}" fill="none" stroke="#1c3f5e" stroke-width="1.8"/>${dots}`;
+}
+async function fetchRoute(pts){
+  const coordStr=pts.map(p=>`${p[1].toFixed(4)},${p[0].toFixed(4)}`).join(';');
+  const url=`https://router.project-osrm.org/route/v1/driving/${coordStr}?overview=full&geometries=geojson`;
+  try{const j=await fetch(url).then(r=>r.json());
+    if(j&&j.code==='Ok'&&j.routes&&j.routes[0]&&j.routes[0].geometry&&j.routes[0].geometry.coordinates.length>2)
+      return j.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]);
+  }catch(e){}
+  return null;
+}
+function initDayMap(d){
+  if(dayMap){dayMap.remove();dayMap=null;}
+  const a=getLL(d.from),b=getLL(d.to);
+  dayMap=L.map('dayMap',{scrollWheelZoom:false,zoomControl:true}).setView([(a[0]+b[0])/2,(a[1]+b[1])/2],5);
+  addTiles(dayMap);
+  const seg=getDaySegment(d);
+  const straight=L.polyline(seg,{color:'#1c3f5e',weight:4,opacity:.5,dashArray:'7,7'}).addTo(dayMap).bindTooltip('直线示意（正在加载真实导航路线…）');
+  L.circleMarker(seg[0],{radius:7,color:'#1b1815',fillColor:'#4d8a55',fillOpacity:1,weight:2}).addTo(dayMap).bindPopup(`<b>起</b><br>${d.from}`);
+  L.circleMarker(seg[seg.length-1],{radius:7,color:'#1b1815',fillColor:'#b23a2e',fillOpacity:1,weight:2}).addTo(dayMap).bindPopup(`<b>终</b><br>${d.to} · ${d.altLabel}`);
+  dayMap.fitBounds(seg,{padding:[28,28]});
+  fetchRoute(seg).then(rt=>{ if(rt&&dayMap){
+    straight.setStyle({opacity:0});
+    L.polyline(rt,{color:'#1c3f5e',weight:5,opacity:.9}).addTo(dayMap).bindTooltip('真实导航路线（OSRM · 高德底图）');
+    dayMap.fitBounds(rt,{padding:[28,28]});
+  }});
+}
+const LL={'莘县':[36.025,115.442],'天水':[34.581,105.725],'兰州':[36.061,103.834],'西宁':[36.617,101.798],'黑马河':[36.733,99.978],'茶卡':[36.744,99.080],'大柴旦':[37.852,95.310],'当金山':[38.23,95.30],'敦煌':[40.143,94.663],'嘉峪关':[39.802,98.288],'张掖':[38.926,100.449],'银川':[38.487,106.231],'榆林':[38.285,109.734],'太原':[37.873,112.55],'石家庄':[38.045,114.51],'济南':[36.65,117.0],'中卫':[37.515,105.197],'家':[36.025,115.442]};
+function getLL(n){return LL[n]||[36,105];}
+function getDaySegment(d){
+  if(d.n===8)return ['银川','太原','石家庄','济南','莘县'].map(getLL);
+  const via={2:['天水','兰州','西宁'],3:['西宁','黑马河'],4:['黑马河','茶卡','大柴旦'],
+    5:['大柴旦','当金山','敦煌'],6:['敦煌','嘉峪关'],7:['嘉峪关','张掖','银川']};
+  let pts=(via[d.n]||[d.from,d.to]).slice();
+  if(pts[0]!==d.from)pts.unshift(d.from);
+  return pts.map(getLL);
+}
+
+/* ---- weather ---- */
+async function loadWeather(d){
+  const body=$('#weatherBody'),st=$('#wStatus');
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lon}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,relative_humidity_2m_mean,uv_index_max,sunrise,sunset,precipitation_sum,wind_speed_10m_max&timezone=Asia/Shanghai&start_date=${d.date}&end_date=${d.date}`;
+  try{
+    const j=await fetch(url).then(r=>r.json());const x=j.daily;
+    const w={tmax:x.temperature_2m_max[0],tmin:x.temperature_2m_min[0],feel:x.apparent_temperature_max[0],
+      hum:x.relative_humidity_2m_mean[0],uv:x.uv_index_max[0],sr:x.sunrise[0],ss:x.sunset[0],rain:x.precipitation_sum[0],wind:x.wind_speed_10m_max[0]};
+    st.textContent=`实时预报 · ${d.date} · ${d.to}`;
+    renderWeather(body,w,d.altLabel);
+  }catch(e){
+    st.textContent='离线 · 常年气候值';
+    const c=d.climate;
+    renderWeather(body,{tmax:+c.tmax,tmin:+c.tmin,feel:+c.tmax,hum:+c.humid,uv:+c.uv,sr:c.sunrise,ss:c.sunset,rain:0,wind:0},d.altLabel,true);
+  }
+}
+function uvRisk(uv){if(uv<3)return['低','#4d8a55'];if(uv<6)return['中','#c98a3e'];if(uv<8)return['高','#c98a3e'];if(uv<11)return['很强','#b23a2e'];return['极强','#7a1a12'];}
+function hm(t){return (t||'').slice(11,16);}
+function renderWeather(body,w,alt,offline){
+  const [ul,uc]=uvRisk(w.uv);const uvpct=Math.min(w.uv/11,1)*100;
+  body.innerHTML=`
+    <div class="w-grid">
+      <div class="w-cell"><div class="wl">最高 / 最低</div><div class="wv">${Math.round(w.tmax)}<small> / ${Math.round(w.tmin)}℃</small></div></div>
+      <div class="w-cell"><div class="wl">体感温度</div><div class="wv">${Math.round(w.feel)}<small>℃</small></div></div>
+      <div class="w-cell"><div class="wl">相对湿度</div><div class="wv">${Math.round(w.hum)}<small>%</small></div></div>
+      <div class="w-cell sun"><div class="wl">日出</div><div class="wv">${hm(w.sr)}</div></div>
+      <div class="w-cell sun"><div class="wl">日落</div><div class="wv">${hm(w.ss)}</div></div>
+      <div class="w-cell"><div class="wl">海拔</div><div class="wv">${alt}</div></div>
+    </div>
+    <div class="uvline">紫外线指数 <b class="num" style="font-size:19px;color:${uc}">${(w.uv).toFixed?w.uv.toFixed(1):w.uv}</b> <span style="color:${uc};font-weight:600">${ul}</span></div>
+    <div class="uvbar"><div class="uv-dot" style="left:calc(${uvpct}% - 6px)"></div></div>
+    <div class="w-meta"><span>降水 ${w.rain} mm</span><span>最大风速 ${Math.round(w.wind)} km/h</span></div>
+    ${offline?`<div class="w-note">实时天气获取失败（可能离线），以上为 8 月中旬常年气候值。<a href="javascript:void(0)" onclick="loadWeather(DAYS[${window.curDayIdx??0}])">重试</a></div>`:''}`;
+}
+
+/* ---- budget ---- */
+const CATS=[['fuel','油费','#2b5d86'],['toll','过路费','#7a7163'],['hotel','住宿','#c98a3e'],['food','餐饮','#4d8a55'],['tickets','门票','#b23a2e'],['other','其他','#9a7730']];
+function renderBudget(){
+  $('#budget').classList.remove('hidden');
+  // totals
+  const catTot={};CATS.forEach(c=>catTot[c[0]]=0);
+  let grand=0;
+  const perDay=DAYS.map(d=>{let s=0;CATS.forEach(c=>{s+=d.cost[c[0]];});grand+=s;CATS.forEach(c=>catTot[c[0]]+=d.cost[c[0]]);return s;});
+  const maxDay=Math.max(...perDay);
+  // bars
+  const bars=DAYS.map((d,i)=>{
+    const tot=perDay[i];
+    const segs=CATS.map(c=>{const v=d.cost[c[0]];if(!v)return '';const h=(v/maxDay)*180;return `<div class="seg" style="height:${h}px;background:${c[2]}" title="${c[1]} ${v}"></div>`;}).join('');
+    return `<div class="bbar" onclick="go('#/day/${d.n}')"><div class="segs" style="height:${(tot/maxDay)*180}px">${segs}</div><div class="bl">${tot.toLocaleString()}</div><div class="bd">D${d.n}</div></div>`;
+  }).join('');
+  const legend=CATS.map(c=>`<span><i style="background:${c[2]}"></i>${c[1]} ${catTot[c[0]].toLocaleString()}</span>`).join('');
+  const catRows=CATS.map(c=>{const v=catTot[c[0]];const pct=(v/grand*100).toFixed(0);return `<tr><td><span class="swatch" style="background:${c[2]}"></span>${c[1]}</td><td></td><td>${v.toLocaleString()}</td><td>${pct}%</td></tr>`;}).join('');
+  $('#budget').innerHTML=`
+    <div class="day-head">
+      <div class="eyebrow">Budget · 4 人 · 8 天</div>
+      <div class="row">
+        <div class="bignum">¥</div>
+        <div class="meta">
+          <h2>总预算仪表盘</h2>
+          <div class="sub">中型SUV · 95 号 · 5200 km · 2 标间 · 4 人核心门票（莫高窟按应急票计）</div>
+          <div class="kpis">
+            <div class="kpi"><span class="l">4 人总计</span><br><span class="v">≈ ${grand.toLocaleString()}</span></div>
+            <div class="kpi"><span class="l">人均</span><br><span class="v">≈ ${(grand/4).toFixed(0).toLocaleString()}</span></div>
+            <div class="kpi"><span class="l">每日均值</span><br><span class="v">≈ ${(grand/8).toFixed(0)}</span></div>
+            <div class="kpi"><span class="l">区间</span><br><span class="v" style="font-size:14px">15,800–17,500</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel"><h3>每日花销分布<span class="eyebrow">Daily · 点击柱子进当日</span></h3>
+      <div class="bchart">${bars}</div>
+      <div class="blegend">${legend}</div>
+      <div class="bud-range">单位：元。D7 因丹霞 + 西夏王陵门票叠加长途油费为最高；D8 纯赶路、过路费油费最高、无门票无住宿。核心约 16,100 元；抢到莫高窟 A 类票 + 加可选项目（塔尔寺 / 沙坡头）约 17,500 元。</div>
+    </div>
+    <div class="two-col">
+      <div class="panel"><h3>类目占比<span class="eyebrow">By Category</span></h3>
+        <table class="bcat-table"><tr><td>类目</td><td></td><td>金额</td><td>占比</td></tr>${catRows}
+        <tr style="border-top:2px solid var(--ink)"><td><b>合计</b></td><td></td><td><b>${grand.toLocaleString()}</b></td><td><b>100%</b></td></tr></table>
+      </div>
+      <div class="panel"><h3>省钱与弹性<span class="eyebrow">Tips</span></h3>
+        <ul class="tips">
+          <li><b>门票弹性最大（约 ±1,500）</b>：莫高窟 A 类 238 → 应急 100，4 人即省 552；沙坡头 / 塔尔寺为可选 +600。</li>
+          <li><b>住宿弹性（约 ±1,400）</b>：黑马河 / 大柴旦民宿 250 vs 中端 400，7 晚可上下浮动。</li>
+          <li><b>油费随油价</b>：95 号每涨 0.5 元 / 升，全程约 +250 元。</li>
+          <li><b>减负方案</b>：见 02_减负备选方案.docx，总预算基本持平，安全余量更高。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-nav">
+      <a onclick="go('')"><small>← Home</small><b>返回首页</b></a>
+      <a class="r" onclick="go('#/day/1')"><small>Start</small><b>从第一天开始</b></a>
+    </div>`;
+  window.curDayIdx=0;
+}
+function reveal(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+}
+
+/* ---- boot ---- */
+window.addEventListener('resize',()=>{if(!location.hash){buildProfile($('#heroProfile'),0,ELEV.length-1,0,320,{});}if(homeMap)homeMap.invalidateSize();if(dayMap)dayMap.invalidateSize();});
+buildTabs();
+window.addEventListener('hashchange',router);
+router();
+</script>
+</body>
+</html>
