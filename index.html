@@ -845,7 +845,7 @@ function guideCard(a){
   const src=GSRC[a.name]||'';
   const img=GIMG[a.name];
   return `<article class="guide ${a.cat}">
-    ${img?`<img class="g-img" src="img/${img}.png" alt="${a.name}" loading="lazy" onerror="this.remove()">`:''}
+    ${img?`<img class="g-img" src="img/${img}.jpg" alt="${a.name}" loading="lazy" onerror="this.remove()">`:''}
     <div class="g-toggle" onclick="this.parentNode.classList.toggle('open')">
       <div class="g-cat">${catName(a.cat)}</div>
       <h4>${a.name}</h4>
