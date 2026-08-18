@@ -5,7 +5,7 @@ description: 规划旅行并生成高审美互动行程网页（含实时天气/
 
 # Travel Planner · 旅行规划 → 高审美互动网页（v2）
 
-> 项目代号 **关照 Guanzhao**（名称待用户终选）：古时出嘉峪关须领"关照"，如今让 AI 给每趟旅程多点关照。
+> 项目代号 **TripInk**——Your trip, in ink. 把旅行写进墨里：读懂你 → 查证世界 → 把行程印成可交互的旅行杂志。
 
 产出物：单文件互动 `index.html`（海拔剖面 + 真实导航路线 + 每日分页 + 导游级讲解 + 按到达日期实时天气 + 美食住宿 + 预算仪表盘），可选 `行程手册.md/.pdf` 与 GitHub Pages 发布。
 
@@ -74,7 +74,7 @@ description: 规划旅行并生成高审美互动行程网页（含实时天气/
 
 1. 复制 `references/template.html`；2. 换主题 tokens；3. 按模式套版式（zine-modes 的 CSS 配方）；4. 换数据 `ELEV/DAYS/TIPS/GSRC/GIMG`（规范见 `references/data-schema.md`）；5. 换标题/brand/Latin 副标；6. 无配图则 `GIMG={}`（onerror 自动隐藏）。
 **QA 必做**：零 JS 报错；逐日渲染；天气 API 真实返回；预算自洽（每日小计和=仪表盘=首页大数字）；375px 移动端；PDF 输出（若需）背景色完整。
-手册（可选）：仓库 `gen_handbook.js`/`render_pdf.js`，或手写等价 MD。
+手册（可选）：仓库 `gen_handbook.js`/`render_pdf.js` 出 md+pdf；Word 可按 `gen_docs.js` 先例（docx-js）生成；或手写等价 MD。
 
 ## Phase 6 · 发布（可选，先问）
 
