@@ -33,6 +33,7 @@ cp -r tripink/skill/travel-planner ~/.claude/skills/
 | `references/data-schema.md` · `template.html` · `optimize_images.py` | 数据规范 / 完整模板 / 配图压缩工具 |
 
 ## 品牌与传播
+- [交接文档（写给 GPT 协作者）](docs/HANDOVER.md) —— 项目全貌 + 任务清单 + 防幻觉事实表
 - [品牌定稿与 Logo Prompt](docs/命名与Logo.md)（6 个扁平字标方向，含 OG 图）
 - [爆款传播方案](docs/PROMOTION.md)（抖音/小红书/GitHub 三平台打法 + 冷启动 72h 清单）
 
