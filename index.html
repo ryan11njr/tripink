@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>丝路西行 · 莘县→敦煌 自驾大环线</title>
+<title>丝路西行 · 聊城东昌府区→敦煌 自驾大环线</title>
 <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.css"/>
 <link rel="stylesheet" href="https://fonts.font.im/css?family=Cormorant+Garamond:400,500,600,400i,500i&display=swap"/>
 <script src="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -245,7 +245,7 @@ footer.site a{color:var(--ink2)}
 
 <header class="nav">
   <div class="nav-in">
-    <div class="brand" onclick="go('')">丝路西行<small>SHENXIAN · DUNHUANG</small></div>
+    <div class="brand" onclick="go('')">丝路西行<small>LIAOCHENG · DUNHUANG</small></div>
     <nav class="tabs" id="tabs"></nav>
   </div>
 </header>
@@ -256,12 +256,12 @@ footer.site a{color:var(--ink2)}
     <div class="hero">
       <div class="eyebrow">2026 · 08 · 08 — 08 · 15 　 Eight Days · Seven Nights</div>
       <h1>从平原到<em>敦煌</em>，<br/>一条贯穿大西北的<em>色谱</em>。</h1>
-      <p class="lede">山东莘县出发，跨中原、登青藏高原、穿戈壁、入河西走廊，抵达鸣沙山月牙泉——草原、盐湖、沙漠、丹霞、石窟、关隘、王陵一气呵成。下方这条<strong>海拔剖面</strong>是整趟旅程的指纹：它告诉你哪几天会站到 3000 米之上。</p>
+      <p class="lede">山东聊城东昌府区出发，跨中原、登青藏高原、穿戈壁、入河西走廊，抵达鸣沙山月牙泉——草原、盐湖、沙漠、丹霞、石窟、关隘、王陵一气呵成。下方这条<strong>海拔剖面</strong>是整趟旅程的指纹：它告诉你哪几天会站到 3000 米之上。</p>
       <div class="statrow">
-        <div class="stat"><div><span class="v">5,200</span><span class="u">km</span></div><div class="l">往返总里程</div></div>
-        <div class="stat"><div><span class="v">4</span><span class="u">人</span></div><div class="l">中型SUV · 95号</div></div>
+        <div class="stat"><div><span class="v">5,100</span><span class="u">km</span></div><div class="l">往返总里程</div></div>
+        <div class="stat"><div><span class="v">3</span><span class="u">人</span></div><div class="l">中型SUV · 95号</div></div>
         <div class="stat"><div><span class="v">3,648</span><span class="u">m</span></div><div class="l">最高海拔 · 当金山</div></div>
-        <div class="stat"><div><span class="v">≈16,100</span><span class="u">¥</span></div><div class="l">4人总预算（核心）</div></div>
+        <div class="stat"><div><span class="v">≈10,600</span><span class="u">¥</span></div><div class="l">3 人总预算（不含住宿）</div></div>
         <div class="stat"><div><span class="v">7</span><span class="u">城</span></div><div class="l">麦积·西宁·青海湖·茶卡·敦煌·张掖·银川</div></div>
       </div>
     </div>
@@ -309,20 +309,20 @@ footer.site a{color:var(--ink2)}
 <script>
 /* ================= DATA ================= */
 const ELEV=[
-  ['莘县',0,50,'起'], ['天水',950,1100,'D1'], ['西宁',1550,2300,'D2'],
+  ['聊城东昌府区',0,50,'起'], ['天水',900,1100,'D1'], ['西宁',1550,2300,'D2'],
   ['黑马河',1800,3200,'D3'], ['茶卡',1950,3059,'D4'], ['大柴旦',2180,3140,'D4'],
   ['当金山',2490,3648,'D5'], ['敦煌',2720,1200,'D5'], ['嘉峪关',3090,1500,'D6'],
-  ['张掖',3310,1500,'D7'], ['银川',4060,1100,'D7'], ['家',5110,50,'D8']
+  ['张掖',3310,1500,'D7'], ['银川',4060,1100,'D7'], ['家',5060,50,'D8']
 ];
 const INMAP={hard:['hard','硬日'],mid:['mid','中等'],easy:['easy','轻松']};
 
 const DAYS=[
 {
- n:1, date:'2026-08-08', wk:'周六', from:'莘县', to:'天水', dist:'950 km', drive:'约 10.5 h', intensity:'hard',
+ n:1, date:'2026-08-08', wk:'周六', from:'聊城东昌府区', to:'天水', dist:'900 km', drive:'约 10.5 h', intensity:'hard',
  tag:'中原穿越', lat:34.581, lon:105.725, altM:1100, altLabel:'1,100 m',
  route:'G30 连霍高速 · 聊城→邯郸→郑州→洛阳→三门峡→渭南→西安（过境不下）→宝鸡→天水',
  timeline:[
-  ['06:30','莘县满油出发，赶在 7:00 前过郑州避开早高峰'],
+  ['06:30','聊城东昌府区满油出发，赶在 7:00 前过郑州避开早高峰'],
   ['12:30','三门峡或渭南服务区午饭、第二次加油'],
   ['17:30—18:30','抵天水秦州区，入住休整'],
   ['晚','吃一碗天水麻辣烫犒劳，早睡，次日爬麦积山']
@@ -344,7 +344,7 @@ const DAYS=[
  hotel:{area:'秦州区或麦积区（近高铁站，便于次日去麦积山）',
    recs:[{n:'全季 / 亚朵（天水秦州店）',p:'~280/间',note:'连锁，停车方便，携程预订'},
          {n:'如家商旅（麦积山高铁站店）',p:'~220/间',note:'性价比，到麦积山约 15 分钟'}], budget:'500–600'},
- cost:{fuel:812,toll:430,hotel:550,food:250,tickets:0,other:40},
+ cost:{fuel:812,toll:430,hotel:550,food:190,tickets:0,other:40},
  climate:{tmax:'32',tmin:'22',humid:'60',uv:'8',sunrise:'06:12',sunset:'19:53',note:'晴热，注意防暑补水'}
 },
 {
@@ -384,7 +384,7 @@ const DAYS=[
  hotel:{area:'城东区 莫家街 / 东关清真大寺一带（美食最集中）',
    recs:[{n:'西宁城东 全季 / 亚朵',p:'~300/间',note:'连锁，步行到莫家街'},
          {n:'如家精选（东关大街）',p:'~250/间',note:'性价比，停车需确认'}], budget:'500–650'},
- cost:{fuel:513,toll:270,hotel:580,food:350,tickets:380,other:30},
+ cost:{fuel:513,toll:270,hotel:580,food:260,tickets:285,other:30},
  climate:{tmax:'29',tmin:'14',humid:'55',uv:'9',sunrise:'06:14',sunset:'19:51',note:'到点降温明显，夜间 14℃ 加薄外套'}
 },
 {
@@ -425,7 +425,7 @@ const DAYS=[
  hotel:{area:'黑马河 / 江西沟 湖边客栈民宿（条件简陋，为看日出）',
    recs:[{n:'青海湖·黑马河湖景民宿（推窗见湖）',p:'~350/间',note:'步行 5–10 分钟到湖边，看日出最近'},
          {n:'黑马河镇经济宾馆',p:'~280/间',note:'评分优先看"卫生 / 供暖 / 热水"'}], budget:'500–700'},
- cost:{fuel:214,toll:70,hotel:600,food:300,tickets:360,other:120},
+ cost:{fuel:214,toll:70,hotel:600,food:220,tickets:270,other:120},
  climate:{tmax:'22',tmin:'9',humid:'65',uv:'11',sunrise:'06:36',sunset:'20:15',note:'白天 20–25℃，夜间 8–12℃，紫外线指数爆表，午后多短阵雨'}
 },
 {
@@ -465,7 +465,7 @@ const DAYS=[
  hotel:{area:'大柴旦镇（镇小，8 月极紧，务必提前订）',
    recs:[{n:'大柴旦梦之旅 / 海西商务酒店',p:'~320/间',note:'镇上口碑中上'},
          {n:'大柴旦 民宿客栈',p:'~260/间',note:'评价看"热水 / 卫生"'}], budget:'550–700'},
- cost:{fuel:325,toll:30,hotel:620,food:280,tickets:240,other:30},
+ cost:{fuel:325,toll:30,hotel:620,food:210,tickets:180,other:30},
  climate:{tmax:'20',tmin:'6',humid:'45',uv:'11',sunrise:'06:57',sunset:'20:05',note:'夜间 5–10℃，午后多大风，紫外线极强'}
 },
 {
@@ -506,7 +506,7 @@ const DAYS=[
  hotel:{area:'敦煌市区 / 沙洲夜市附近（连住 2 晚 D5–D6）',
    recs:[{n:'敦煌沙洲夜市 全季 / 亚朵',p:'~320/间',note:'步行到夜市与鸣沙山方向'},
          {n:'沙洲驿 / 东驿·月牙泉 精品民宿',p:'~400/间',note:'野奢风，适合拍照，提早订'}], budget:'550–700 × 2 晚'},
- cost:{fuel:462,toll:250,hotel:650,food:350,tickets:440,other:150},
+ cost:{fuel:462,toll:250,hotel:650,food:260,tickets:330,other:150},
  climate:{tmax:'37',tmin:'20',humid:'25',uv:'10',sunrise:'07:05',sunset:'20:42',note:'白天 35–38℃ 干热、偶沙尘；日落后转凉，鸣沙山建议 19:00 入园'}
 },
 {
@@ -543,12 +543,12 @@ const DAYS=[
  ],
  food:[
   {dish:'嘉峪关烤肉（大唐美食街）',shop:'大唐美食街各烤肉店',
-   note:'戈壁烤羊肉，瘦嫩少膻，配杏皮水或啤酒，4 人一顿约 250。人均 60。',
+   note:'戈壁烤羊肉，瘦嫩少膻，配杏皮水或啤酒，3 人一顿约 190。人均 60。',
    src:'本地口碑'}
  ],
  hotel:{area:'嘉峪关市区 大唐美食街附近',
    recs:[{n:'嘉峪关 全季 / 如家精选',p:'~280/间',note:'近美食街，停车方便'}], budget:'500–600'},
- cost:{fuel:316,toll:150,hotel:550,food:300,tickets:840,other:30},
+ cost:{fuel:316,toll:150,hotel:550,food:220,tickets:630,other:30},
  climate:{tmax:'34',tmin:'18',humid:'30',uv:'9',sunrise:'06:43',sunset:'20:24',note:'敦煌 37℃→嘉峪关傍晚 30℃，防晒'}
 },
 {
@@ -595,33 +595,33 @@ const DAYS=[
  hotel:{area:'银川兴庆区（近鼓楼 / 西夏王陵方向）',
    recs:[{n:'银川兴庆 全季 / 亚朵',p:'~300/间',note:'近老毛手抓鼓楼店'},
          {n:'如家商旅（兴庆区）',p:'~250/间',note:'性价比'}], budget:'550–650'},
- cost:{fuel:641,toll:340,hotel:600,food:350,tickets:640,other:40},
+ cost:{fuel:641,toll:340,hotel:600,food:260,tickets:480,other:40},
  climate:{tmax:'32',tmin:'19',humid:'50',uv:'9',sunrise:'06:16',sunset:'19:48',note:'张掖 32℃→银川夜间 20℃，干热防晒'}
 },
 {
- n:8, date:'2026-08-15', wk:'周六', from:'银川', to:'莘县·家', dist:'1,050 km', drive:'约 11.5 h', intensity:'hard',
+ n:8, date:'2026-08-15', wk:'周六', from:'银川', to:'聊城东昌府区·家', dist:'1,000 km', drive:'约 11.5 h', intensity:'hard',
  tag:'返程', lat:38.487, lon:106.231, altM:1100, altLabel:'1,100 m',
- route:'银川 → G65/G20 榆林 → 太原 → 石家庄 → G3 济南 → 聊城 → 莘县',
+ route:'银川 → G65/G20 榆林 → 太原 → 石家庄 → G3 济南 → 聊城 → 聊城东昌府区',
  timeline:[
   ['06:00','出发，2 司机轮换，避开早高峰'],
   ['12:00','太原附近服务区午饭、第二次加油'],
-  ['18:00—20:00','抵家莘县，行程圆满']
+  ['18:00—20:00','抵家聊城东昌府区，行程圆满']
  ],
  attractions:[
   {cat:'cul',name:'返程 · 归途',hook:'五千里路云和月，从华北平原到青藏高原再到大漠戈壁——能平安到家，就是最好的句点。',
-   facts:[['全程','≈5,200 km'],['跨海拔','50m ↔ 3,648m'],['穿越','中原·高原·戈壁·走廊·塞上']],
+   facts:[['全程','≈5,100 km'],['跨海拔','50m ↔ 3,648m'],['穿越','中原·高原·戈壁·走廊·塞上']],
    secs:[
-    ['小结','全程约 5200 公里，跨越海拔 50 米到 3648 米、贯穿中原、青藏高原、柴达木戈壁、河西走廊、宁夏平原五种地貌。<b>务必 2 人轮换</b>，每 2 小时进服务区休息。'],
+    ['小结','全程约 5100 公里，跨越海拔 50 米到 3648 米、贯穿中原、青藏高原、柴达木戈壁、河西走廊、宁夏平原五种地貌。<b>务必 2 人轮换</b>，每 2 小时进服务区休息。'],
     ['备选','若末段太累，可改走<b>减负方案</b>（详见 02_减负备选方案.docx）：D7 改宿榆林、D8 仅 700 公里，更从容安全。']
    ],
    anec:''}
  ],
  food:[
   {dish:'服务区简餐 / 自带干粮',shop:'沿途高速服务区',
-   note:'返程以赶路为主，早餐酒店含、午晚服务区或自带零食，4 人一天约 200。',src:'—'}
+   note:'返程以赶路为主，早餐酒店含、午晚服务区或自带零食，3 人一天约 150。',src:'—'}
  ],
  hotel:{area:'返家，不住', recs:[{n:'——',p:'—',note:'安全到家'}], budget:'0'},
- cost:{fuel:898,toll:470,hotel:0,food:200,tickets:0,other:40},
+ cost:{fuel:898,toll:470,hotel:0,food:150,tickets:0,other:40},
  climate:{tmax:'32',tmin:'22',humid:'55',uv:'8',sunrise:'05:54',sunset:'19:20',note:'全程晴热 30–33℃，注意防疲劳，2 司机轮换'}
 }
 ];
@@ -694,7 +694,7 @@ function buildTabs(){
 /* ---- elevation profile ---- */
 function buildProfile(svgEl,fromIdx,toIdx,w,h,opts={}){
   const seg=ELEV.slice(fromIdx,toIdx+1);
-  const maxKm=5110,maxAlt=3700,minAlt=0;
+  const maxKm=5060,maxAlt=3700,minAlt=0;
   const padL=46,padR=20,padT=24,padB=70;
   const W=w||(svgEl.clientWidth||1100),H=h||(svgEl.clientHeight||320);
   if(!W||!H)return;
@@ -757,12 +757,12 @@ function initHomeMap(){
   homeMap=L.map('homeMap',{scrollWheelZoom:false}).setView([37,103],4);
   addTiles(homeMap);
   const order=[0,1,2,3,4,5,6,7,8,9,10,11];
-  const dayLL={'莘县':[36.025,115.442],'天水':[34.581,105.725],'西宁':[36.617,101.798],'黑马河':[36.733,99.978],'茶卡':[36.744,99.080],'大柴旦':[37.852,95.310],'当金山':[38.23,95.30],'敦煌':[40.143,94.663],'嘉峪关':[39.802,98.288],'张掖':[38.926,100.449],'银川':[38.487,106.231],'家':[36.025,115.442]};
+  const dayLL={'聊城东昌府区':[36.056,115.985],'天水':[34.581,105.725],'西宁':[36.617,101.798],'黑马河':[36.733,99.978],'茶卡':[36.744,99.080],'大柴旦':[37.852,95.310],'当金山':[38.23,95.30],'敦煌':[40.143,94.663],'嘉峪关':[39.802,98.288],'张掖':[38.926,100.449],'银川':[38.487,106.231],'家':[36.056,115.985]};
   const routeLL=order.map(i=>dayLL[ELEV[i][0]]);
   const homeMain=L.polyline(routeLL,{color:'#1c3f5e',weight:4,opacity:.45,dashArray:'7,7'}).addTo(homeMap).bindTooltip('主方案 · 加载真实路线中…');
-  const alt=[[39.802,98.288],[38.926,100.449],[37.515,105.197],[38.285,109.734],[36.025,115.442]];
+  const alt=[[39.802,98.288],[38.926,100.449],[37.515,105.197],[38.285,109.734],[36.056,115.985]];
   L.polyline(alt,{color:'#c98a3e',weight:4,opacity:.85,dashArray:'9,8'}).addTo(homeMap).bindTooltip('减负末段 · 经中卫 / 榆林');
-  const pop={0:'起·终 莘县',1:'D1 天水',2:'D2 西宁',3:'D3 黑马河',4:'D4 茶卡',5:'D4 大柴旦',6:'D5 当金山',7:'D5 敦煌',8:'D6 嘉峪关',9:'D7 张掖',10:'D7 银川',11:'D8 家'};
+  const pop={0:'起·终 聊城东昌府区',1:'D1 天水',2:'D2 西宁',3:'D3 黑马河',4:'D4 茶卡',5:'D4 大柴旦',6:'D5 当金山',7:'D5 敦煌',8:'D6 嘉峪关',9:'D7 张掖',10:'D7 银川',11:'D8 家'};
   order.forEach(i=>{L.circleMarker(dayLL[ELEV[i][0]],{radius:6,color:'#1b1815',weight:1.5,fillColor:'#fbf3da',fillOpacity:1}).addTo(homeMap).bindPopup(`<b>${pop[i]}</b><br>${ELEV[i][0]} · ${ELEV[i][2]}m`);});
   L.circleMarker(dayLL['当金山'],{radius:6,color:'#b23a2e',fillColor:'#b23a2e',fillOpacity:.85}).addTo(homeMap).bindPopup('当金山口 3648m · 高反风险');
   homeMap.fitBounds(routeLL,{padding:[28,28]});
@@ -822,11 +822,11 @@ function renderDay(idx){
       <div class="panel"><h3>吃什么<span class="eyebrow">Food</span></h3>
         ${d.food.map(f=>`<div class="eat"><h4>${f.dish}</h4><div class="shop">${f.shop}</div><p>${f.note}</p><div class="src">来源：${f.src}</div></div>`).join('')}
       </div>
-      <div class="panel"><h3>住哪里<span class="eyebrow">Stay · 2 标间</span></h3>
+      <div class="panel"><h3>住哪里<span class="eyebrow">Stay · 3 人</span></h3>
         <div class="hotel-area">分区：${d.hotel.area}<span class="route-badge">预算 ${d.hotel.budget} 元 / 晚</span></div>
         <ul class="hotel-list">${d.hotel.recs.map(r=>`<li><span class="hp">${r.p}</span><div class="hn">${r.n}<small>${r.note}</small></div></li>`).join('')}</ul>
       </div>
-      <div class="panel"><h3>当日花销<span class="eyebrow">4 人合计</span></h3>
+      <div class="panel"><h3>当日花销<span class="eyebrow">3 人合计 · 不含住宿</span></h3>
         ${costTable(d.cost)}
       </div>
     </div>
@@ -862,7 +862,7 @@ function guideCard(a){
 }
 function catName(c){return {his:'历史 · 人文',geo:'地理 · 地质',cul:'人文 · 风物'}[c]||c;}
 function costTable(c){
-  const rows=[['油费',c.fuel],['过路费',c.toll],['住宿',c.hotel],['餐饮',c.food],['门票（4 人）',c.tickets],['其他',c.other]];
+  const rows=[['油费',c.fuel],['过路费',c.toll],['餐饮',c.food],['门票（3 人）',c.tickets],['其他',c.other]];
   const sum=rows.reduce((a,r)=>a+r[1],0);
   return `<table class="cost">${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]?r[1].toLocaleString():'—'}</td></tr>`).join('')}
     <tr class="sum"><td>当日小计</td><td>≈ ${sum.toLocaleString()}</td></tr></table>`;
@@ -912,10 +912,10 @@ function initDayMap(d){
     dayMap.fitBounds(rt,{padding:[28,28]});
   }});
 }
-const LL={'莘县':[36.025,115.442],'天水':[34.581,105.725],'兰州':[36.061,103.834],'西宁':[36.617,101.798],'黑马河':[36.733,99.978],'茶卡':[36.744,99.080],'大柴旦':[37.852,95.310],'当金山':[38.23,95.30],'敦煌':[40.143,94.663],'嘉峪关':[39.802,98.288],'张掖':[38.926,100.449],'银川':[38.487,106.231],'榆林':[38.285,109.734],'太原':[37.873,112.55],'石家庄':[38.045,114.51],'济南':[36.65,117.0],'中卫':[37.515,105.197],'家':[36.025,115.442]};
+const LL={'聊城东昌府区':[36.056,115.985],'天水':[34.581,105.725],'兰州':[36.061,103.834],'西宁':[36.617,101.798],'黑马河':[36.733,99.978],'茶卡':[36.744,99.080],'大柴旦':[37.852,95.310],'当金山':[38.23,95.30],'敦煌':[40.143,94.663],'嘉峪关':[39.802,98.288],'张掖':[38.926,100.449],'银川':[38.487,106.231],'榆林':[38.285,109.734],'太原':[37.873,112.55],'石家庄':[38.045,114.51],'济南':[36.65,117.0],'中卫':[37.515,105.197],'家':[36.056,115.985]};
 function getLL(n){return LL[n]||[36,105];}
 function getDaySegment(d){
-  if(d.n===8)return ['银川','太原','石家庄','济南','莘县'].map(getLL);
+  if(d.n===8)return ['银川','太原','石家庄','济南','聊城东昌府区'].map(getLL);
   const via={2:['天水','兰州','西宁'],3:['西宁','黑马河'],4:['黑马河','茶卡','大柴旦'],
     5:['大柴旦','当金山','敦煌'],6:['敦煌','嘉峪关'],7:['嘉峪关','张掖','银川']};
   let pts=(via[d.n]||[d.from,d.to]).slice();
@@ -959,7 +959,7 @@ function renderWeather(body,w,alt,offline){
 }
 
 /* ---- budget ---- */
-const CATS=[['fuel','油费','#2b5d86'],['toll','过路费','#7a7163'],['hotel','住宿','#c98a3e'],['food','餐饮','#4d8a55'],['tickets','门票','#b23a2e'],['other','其他','#9a7730']];
+const CATS=[['fuel','油费','#2b5d86'],['toll','过路费','#7a7163'],['food','餐饮','#4d8a55'],['tickets','门票','#b23a2e'],['other','其他','#9a7730']];
 function renderBudget(){
   $('#budget').classList.remove('hidden');
   // totals
@@ -977,17 +977,17 @@ function renderBudget(){
   const catRows=CATS.map(c=>{const v=catTot[c[0]];const pct=(v/grand*100).toFixed(0);return `<tr><td><span class="swatch" style="background:${c[2]}"></span>${c[1]}</td><td></td><td>${v.toLocaleString()}</td><td>${pct}%</td></tr>`;}).join('');
   $('#budget').innerHTML=`
     <div class="day-head">
-      <div class="eyebrow">Budget · 4 人 · 8 天</div>
+      <div class="eyebrow">Budget · 3 人 · 8 天</div>
       <div class="row">
         <div class="bignum">¥</div>
         <div class="meta">
           <h2>总预算仪表盘</h2>
-          <div class="sub">中型SUV · 95 号 · 5200 km · 2 标间 · 4 人核心门票（莫高窟按应急票计）</div>
+          <div class="sub">中型SUV · 95 号 · 5,100 km · 3 人核心门票（莫高窟按应急票计）· 不含住宿</div>
           <div class="kpis">
-            <div class="kpi"><span class="l">4 人总计</span><br><span class="v">≈ ${grand.toLocaleString()}</span></div>
-            <div class="kpi"><span class="l">人均</span><br><span class="v">≈ ${(grand/4).toFixed(0).toLocaleString()}</span></div>
+            <div class="kpi"><span class="l">3 人总计</span><br><span class="v">≈ ${grand.toLocaleString()}</span></div>
+            <div class="kpi"><span class="l">人均</span><br><span class="v">≈ ${(grand/3).toFixed(0).toLocaleString()}</span></div>
             <div class="kpi"><span class="l">每日均值</span><br><span class="v">≈ ${(grand/8).toFixed(0)}</span></div>
-            <div class="kpi"><span class="l">区间</span><br><span class="v" style="font-size:14px">15,800–17,500</span></div>
+            <div class="kpi"><span class="l">区间</span><br><span class="v" style="font-size:14px">9,800–11,800</span></div>
           </div>
         </div>
       </div>
@@ -995,7 +995,7 @@ function renderBudget(){
     <div class="panel"><h3>每日花销分布<span class="eyebrow">Daily · 点击柱子进当日</span></h3>
       <div class="bchart">${bars}</div>
       <div class="blegend">${legend}</div>
-      <div class="bud-range">单位：元。D7 因丹霞 + 西夏王陵门票叠加长途油费为最高；D8 纯赶路、过路费油费最高、无门票无住宿。核心约 16,100 元；抢到莫高窟 A 类票 + 加可选项目（塔尔寺 / 沙坡头）约 17,500 元。</div>
+      <div class="bud-range">单位：元。住宿因人而异，未计入本预算（可按约 250–400 元/间/晚 自行叠加）。D7 因丹霞 + 西夏王陵门票叠加长途油费为最高；D8 纯赶路、无门票。核心约 10,600 元；抢到莫高窟 A 类票 + 加可选项目（塔尔寺 / 沙坡头）约 11,500 元。</div>
     </div>
     <div class="two-col">
       <div class="panel"><h3>类目占比<span class="eyebrow">By Category</span></h3>
@@ -1004,8 +1004,7 @@ function renderBudget(){
       </div>
       <div class="panel"><h3>省钱与弹性<span class="eyebrow">Tips</span></h3>
         <ul class="tips">
-          <li><b>门票弹性最大（约 ±1,500）</b>：莫高窟 A 类 238 → 应急 100，4 人即省 552；沙坡头 / 塔尔寺为可选 +600。</li>
-          <li><b>住宿弹性（约 ±1,400）</b>：黑马河 / 大柴旦民宿 250 vs 中端 400，7 晚可上下浮动。</li>
+          <li><b>门票弹性最大（约 ±1,000）</b>：莫高窟 A 类 238 → 应急 100，3 人即省 414；沙坡头 / 塔尔寺为可选 +450。</li>
           <li><b>油费随油价</b>：95 号每涨 0.5 元 / 升，全程约 +250 元。</li>
           <li><b>减负方案</b>：见 02_减负备选方案.docx，总预算基本持平，安全余量更高。</li>
         </ul>
