@@ -18,224 +18,318 @@
 <meta name="twitter:title" content="TripInk · Your trip, in ink."/>
 <meta name="twitter:description" content="跨智能体开源旅行规划技能：读懂你，查证世界，把行程印成可交互的旅行杂志。"/>
 <meta name="twitter:image" content="https://ryan11njr.github.io/tripink/assets/brand/og-tripink.png"/>
-<link rel="stylesheet" href="https://fonts.font.im/css?family=Cormorant+Garamond:400,500,600,400i&display=swap"/>
+<link rel="stylesheet" href="https://fonts.font.im/css?family=Cormorant+Garamond:400,500,600,400i,600i&display=swap"/>
 <style>
 :root{
   --ink:#1b1815; --ink2:#4a4339; --ink3:#807466;
-  --paper:#f2e7cb; --paper2:#ead9b0; --card:#fbf3da; --card2:#f6ead0;
+  --paper:#f2e7cb; --paper2:#ead9b0; --card:#fbf3da;
   --cin:#b23a2e; --och:#c98a3e; --azur:#2b5d86; --mal:#4d8a55; --gold:#9a7730;
-  --line:rgba(27,24,21,.16); --line2:rgba(27,24,21,.08);
+  --line:rgba(27,24,21,.16); --line2:rgba(27,24,21,.09);
   --fdisp:"STKaiti","KaiTi","楷体",serif;
   --fbody:"PingFang SC","Microsoft YaHei",sans-serif;
   --fnum:"Cormorant Garamond","Georgia",serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fbody);font-size:16px;line-height:1.8;
-  background-image:radial-gradient(900px 500px at 10% -8%,rgba(201,138,62,.13),transparent 60%),
-                    radial-gradient(800px 600px at 108% 0%,rgba(43,93,134,.09),transparent 55%);}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fbody);font-size:16px;line-height:1.85;
+  background-image:radial-gradient(1100px 560px at 8% -10%,rgba(201,138,62,.14),transparent 60%),
+                    radial-gradient(900px 620px at 106% 2%,rgba(43,93,134,.10),transparent 55%);}
+/* 纸面微噪点 */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.05;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="160" height="160" filter="url(%23n)" opacity="0.6"/></svg>');}
+main,header.top,footer{position:relative;z-index:2}
+.wrap{max-width:1020px;margin:0 auto;padding:0 26px}
 a{color:var(--azur)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-.ey{font-family:var(--fnum);font-style:italic;letter-spacing:.1em;color:var(--gold);font-size:14px;text-transform:uppercase}
-.num{font-family:var(--fnum)}
+.ey{font-family:var(--fnum);font-style:italic;font-weight:500;letter-spacing:.14em;color:var(--gold);font-size:13.5px;text-transform:uppercase}
 
-/* top bar */
-.top{position:sticky;top:0;z-index:100;background:rgba(242,231,203,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.top .in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 22px}
-.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:.02em}
+/* ===== 顶栏 ===== */
+header.top{position:sticky;top:0;z-index:50;background:rgba(242,231,203,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:11px 26px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;letter-spacing:.01em}
 .brand svg{display:block}
-.top a.gh{margin-left:auto;font-size:13px;color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 14px;transition:.18s}
-.top a.gh:hover{border-color:var(--gold)}
+header.top a.gh{margin-left:auto;font-size:13px;color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 15px;transition:.18s}
+header.top a.gh:hover{border-color:var(--cin);color:var(--cin)}
 
-/* hero */
-.hero{text-align:center;padding:64px 0 34px}
-.hero img.mark{width:min(620px,92%);height:auto;margin:0 0 18px}
-.hero .slogan{font-family:var(--fnum);font-style:italic;font-size:20px;color:var(--ink2)}
-.hero .slogan-cn{font-family:var(--fdisp);font-size:17px;color:var(--ink3);margin-top:2px}
-.cta{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap}
-.btn{display:inline-block;text-decoration:none;font-size:15px;padding:11px 26px;border-radius:999px;border:1.5px solid var(--ink);transition:.18s}
+/* ===== Hero：字排版 + 将落墨滴 ===== */
+.hero{padding:96px 0 30px;text-align:center}
+.hero .word{font-size:clamp(58px,11vw,108px);font-weight:800;letter-spacing:-.015em;line-height:1;margin:0 0 6px;font-family:var(--fbody)}
+.hero .word .ii{position:relative;display:inline-block}
+.hero .word .ii .drop{position:absolute;left:50%;transform:translateX(-50%);top:-.34em;width:.30em;height:.34em;animation:fall 2.6s cubic-bezier(.3,.7,.4,1) infinite}
+@keyframes fall{0%{transform:translate(-50%,-26px) scale(.8);opacity:0}18%{opacity:1}55%,70%{transform:translate(-50%,-2px) scale(1)}78%{transform:translate(-50%,-8px) scale(1.04,.92)}100%{transform:translate(-50%,-26px) scale(.8);opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero .word .ii .drop{animation:none;transform:translate(-50%,-10px)}}
+.hero .slogan-en{font-family:var(--fnum);font-style:italic;font-weight:500;font-size:clamp(19px,2.6vw,25px);color:var(--ink2)}
+.hero .slogan-cn{font-family:var(--fdisp);font-size:17px;color:var(--ink3);margin-top:4px}
+.hero .stamp{display:inline-flex;gap:8px;align-items:center;margin-top:26px;padding:6px 16px;border:1.5px dashed var(--cin);border-radius:8px;color:var(--cin);font-size:12.5px;letter-spacing:.06em;transform:rotate(-1.6deg)}
+.hero .stamp b{font-weight:700}
+.cta{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-size:15px;padding:12px 30px;border-radius:999px;border:1.5px solid var(--ink);transition:.18s;font-weight:500}
 .btn.pri{background:var(--ink);color:var(--paper)}
 .btn.pri:hover{background:var(--cin);border-color:var(--cin)}
 .btn.sec{color:var(--ink)}
 .btn.sec:hover{border-color:var(--cin);color:var(--cin)}
-.hero .meta{margin-top:18px;font-size:12.5px;color:var(--ink3)}
 
-/* sections */
-.sec{padding:46px 0 6px}
-.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
-.sec-h h2{font-family:var(--fdisp);font-size:26px;margin:0;font-weight:700}
-.sec-h .ln{flex:1;height:1px;background:var(--line)}
-.lede-big{text-align:center;font-size:17px;color:var(--ink2);max-width:720px;margin:0 auto 10px}
-.lede-big b{color:var(--cin)}
+/* 一句话 */
+.one-liner{max-width:760px;margin:64px auto 0;text-align:center;font-family:var(--fdisp);font-size:clamp(19px,2.8vw,24px);line-height:1.9;color:var(--ink2)}
+.one-liner b{color:var(--cin);font-weight:700}
+.one-liner .arrow{color:var(--gold);font-family:var(--fnum)}
 
-/* pillars */
-.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.pill{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;position:relative;overflow:hidden}
-.pill:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
-.pill:nth-child(1):before{background:var(--cin)} .pill:nth-child(2):before{background:var(--azur)} .pill:nth-child(3):before{background:var(--mal)}
-.pill h3{font-family:var(--fdisp);margin:0 0 6px;font-size:19px}
-.pill p{margin:0;font-size:14px;color:var(--ink2)}
+/* ===== 章节骨架 ===== */
+section{padding:78px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.sec-head .no{font-family:var(--fnum);font-weight:600;font-size:30px;color:var(--och);line-height:1}
+.sec-head h2{font-family:var(--fdisp);font-size:27px;margin:0;font-weight:700}
+.sec-head .ln{flex:1;height:1px;background:var(--line)}
+.sec-sub{color:var(--ink3);font-size:14px;margin:0 0 30px}
 
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;counter-reset:st}
-.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 12px}
-.step:before{counter-increment:st;content:counter(st,decimal-leading-zero);font-family:var(--fnum);font-weight:600;font-size:26px;color:var(--och);display:block;line-height:1}
-.step b{display:block;font-family:var(--fdisp);font-size:15.5px;margin:6px 0 3px}
-.step span{font-size:13px;color:var(--ink2)}
+/* ===== 墨线航路（签名）===== */
+.route{margin:26px 0 6px}
+.route svg{width:100%;height:auto;display:block}
+.route .rt{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-dasharray:1 9}
+.route .wp circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6}
+.route .wp text{font-family:var(--fnum);font-weight:600;font-size:15px;fill:var(--ink)}
+.route .lbl{font-family:var(--fbody);font-size:13px;fill:var(--ink2)}
+.route .lbl-t{font-weight:700;fill:var(--ink)}
+.route-mobile{display:none}
+@media(max-width:760px){
+  .route{display:none}
+  .route-mobile{display:block;border-left:2px dashed var(--ink);margin:8px 0 8px 12px;padding-left:22px}
+  .route-mobile .wp{position:relative;padding:10px 0}
+  .route-mobile .wp:before{content:"";position:absolute;left:-29px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+  .route-mobile b{display:block;font-family:var(--fdisp);font-size:16px}
+  .route-mobile span{font-size:13px;color:var(--ink2)}
+}
 
-/* demo */
-.demo-frame{margin-top:8px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
-.demo-frame iframe{width:100%;height:560px;border:0;display:block}
-.demo-note{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-top:1px dashed var(--line);font-size:13px;color:var(--ink2)}
-.demo-note .l b{color:var(--cin)}
+/* ===== 三支柱：排版式，无盒 ===== */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:38px 34px;margin-top:10px}
+.pillar{position:relative;padding-left:16px}
+.pillar:before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--gold)}
+.pillar:nth-child(1):before{background:var(--cin)} .pillar:nth-child(2):before{background:var(--azur)} .pillar:nth-child(3):before{background:var(--mal)}
+.pillar .en{font-family:var(--fnum);font-style:italic;font-size:13px;color:var(--ink3)}
+.pillar h3{font-family:var(--fdisp);margin:2px 0 8px;font-size:21px}
+.pillar p{margin:0;font-size:14.5px;color:var(--ink2)}
 
-/* style matrix */
-.matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.thm{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card)}
-.thm .sw{display:flex;gap:4px;margin-bottom:8px}
-.thm .sw i{width:16px;height:16px;border-radius:4px;display:block}
-.thm b{font-family:var(--fdisp);font-size:14.5px}
-.thm span{display:block;font-size:11.5px;color:var(--ink3)}
-.modes{margin-top:10px;font-size:13px;color:var(--ink2);background:var(--card2);border:1px dashed var(--line);border-radius:10px;padding:10px 14px}
+/* ===== Demo：墨黑带 ===== */
+.band{background:var(--ink);color:var(--paper);margin-top:74px;padding:66px 0 60px;
+  background-image:radial-gradient(800px 400px at 12% 0%,rgba(185,58,46,.18),transparent 55%),radial-gradient(700px 400px at 95% 100%,rgba(43,93,134,.22),transparent 55%)}
+.band .sec-head h2{color:var(--paper)}
+.band .sec-head .ln{background:rgba(242,231,203,.25)}
+.band .sec-sub{color:rgba(242,231,203,.66)}
+.page-frame{margin-top:6px;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.55),0 0 0 1px rgba(242,231,203,.14)}
+.page-frame iframe{width:100%;height:580px;border:0;display:block;background:var(--paper)}
+.band .meta{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+.band .meta .t{font-size:13.5px;color:rgba(242,231,203,.75)}
+.band .meta .t b{color:var(--paper)}
+.btn.ghost{border-color:rgba(242,231,203,.5);color:var(--paper);padding:9px 20px;font-size:13.5px}
+.btn.ghost:hover{border-color:var(--och);color:var(--och)}
+
+/* ===== 风格：编辑部排法 ===== */
+.themes{margin-top:6px}
+.theme-row{display:flex;align-items:center;gap:16px;padding:13px 2px;border-bottom:1px dashed var(--line)}
+.theme-row:last-of-type{border-bottom:none}
+.theme-row .bar{display:flex;gap:4px;flex:0 0 auto}
+.theme-row .bar i{width:15px;height:15px;border-radius:3px;display:block;border:1px solid rgba(27,24,21,.12)}
+.theme-row b{font-family:var(--fdisp);font-size:16.5px;white-space:nowrap}
+.theme-row span{font-size:13px;color:var(--ink3)}
+.modes{margin-top:20px;font-size:14px;color:var(--ink2)}
 .modes b{color:var(--gold)}
+.modes i{font-family:var(--fnum);font-style:italic;color:var(--ink3);margin:0 6px}
 
-/* install */
-.plats{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
-.plat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.plat h3{font-family:var(--fdisp);margin:0 0 4px;font-size:17px}
-.plat p{font-size:13px;color:var(--ink2);margin:0 0 10px}
-.plat pre{background:var(--paper);border:1px solid var(--line2);border-radius:8px;padding:10px 12px;font-size:12px;overflow:auto;line-height:1.6;margin:0}
-.plat pre b{color:var(--cin);font-weight:600}
+/* ===== 安装：切换 ===== */
+.tabs{display:flex;gap:8px;margin:4px 0 0;flex-wrap:wrap}
+.tab{cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink2);border-radius:999px;padding:7px 18px;font-size:14px;font-family:var(--fbody);transition:.15s}
+.tab.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.panel{display:none;margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px}
+.panel.on{display:block}
+.panel p{margin:0 0 12px;font-size:14px;color:var(--ink2)}
+.panel pre{background:var(--paper);border:1px solid var(--line2);border-radius:10px;padding:14px 16px;font-size:12.5px;overflow:auto;line-height:1.75;margin:0}
+.panel pre b{color:var(--cin);font-weight:600}
 
-/* files table */
-table{width:100%;border-collapse:collapse;font-size:14px}
-td{padding:9px 8px;border-bottom:1px dashed var(--line2);vertical-align:top}
+/* ===== 结构 & 故事 ===== */
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
+td{padding:10px 8px;border-bottom:1px dashed var(--line2);vertical-align:top}
 td:first-child{white-space:nowrap;font-family:var(--fnum);font-weight:600;color:var(--azur)}
 td:last-child{color:var(--ink2)}
-
-/* story */
-.story{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:24px 28px;max-width:820px;margin:0 auto;font-family:var(--fdisp);font-size:16px;color:var(--ink2)}
+.story{margin:26px auto 0;max-width:820px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 34px;text-align:center;font-family:var(--fdisp);font-size:16.5px;color:var(--ink2);line-height:2}
 .story b{color:var(--cin)}
+.story .first{font-family:var(--fnum);font-style:italic;color:var(--gold);display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
 
-footer{margin-top:56px;border-top:1px solid var(--line);padding:34px 0 46px;text-align:center;color:var(--ink3);font-size:12.5px;line-height:2}
+footer{border-top:1px solid var(--line);padding:36px 0 50px;text-align:center;color:var(--ink3);font-size:12.5px;line-height:2.1}
 footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 </style>
 </head>
 <body>
 
-<div class="top"><div class="in">
+<header class="top"><div class="in">
   <div class="brand">
-    <svg width="24" height="24" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f2e7cb"/><path d="M32 7 C35.5 13 41 17.5 41 24 A9 9 0 1 1 23 24 C23 17.5 28.5 13 32 7 Z" fill="#b23a2e"/><rect x="28" y="37" width="8" height="22" rx="2.5" fill="#1b1815"/></svg>
+    <svg width="22" height="22" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f2e7cb"/><path d="M32 7 C35.5 13 41 17.5 41 24 A9 9 0 1 1 23 24 C23 17.5 28.5 13 32 7 Z" fill="#b23a2e"/><rect x="28" y="37" width="8" height="22" rx="2.5" fill="#1b1815"/></svg>
     TripInk
   </div>
   <a class="gh" href="https://github.com/ryan11njr/tripink" target="_blank">GitHub</a>
-</div></div>
+</div></header>
 
+<main>
+
+<!-- Hero -->
 <div class="wrap">
-
   <div class="hero">
-    <img class="mark" src="assets/brand/readme-header.png" alt="TripInk"/>
-    <div class="slogan">Your trip, in ink.</div>
+    <h1 class="word">Trip<span class="ii">I<svg class="drop" viewBox="0 0 24 30"><path d="M12 1 C14.5 6 19 9.5 19 15.5 A7 7 0 1 1 5 15.5 C5 9.5 9.5 6 12 1 Z" fill="#b23a2e"/></svg></span>nk</h1>
+    <div class="slogan-en">Your trip, in ink.</div>
     <div class="slogan-cn">最懂你的旅行设计师</div>
+    <div class="stamp"><b>开源</b>·<b>MIT</b>·<b>Claude Code / Codex / 任何 SKILL.md 智能体</b></div>
     <div class="cta">
-      <a class="btn pri" href="demo/northwest/" target="_blank">在线体验 Demo</a>
+      <a class="btn pri" href="demo/northwest/" target="_blank">翻开 Demo</a>
       <a class="btn sec" href="https://github.com/ryan11njr/tripink" target="_blank">GitHub 仓库</a>
     </div>
-    <div class="meta">跨智能体开源技能（Claude Code · Codex · 任何支持 SKILL.md 约定的智能体）· MIT License</div>
   </div>
 
-  <div class="sec">
-    <p class="lede-big">不是又一份 AI 文字攻略。TripInk <b>读懂你 → 查证世界</b>，把你的行程<b>印成一本可交互的旅行杂志</b>——海拔剖面、真实导航路线、实时天气、导游级讲解、预算仪表盘，全部装进一个双击就开的网页。</p>
-  </div>
+  <p class="one-liner">不是又一份 AI 文字攻略。<br/>TripInk 先<b>读懂你</b><span class="arrow"> → </span>再<b>查证世界</b><span class="arrow"> → </span>把你的行程<b>印成一本可交互的旅行杂志</b>——<br/>海拔剖面 · 真实导航路线 · 实时天气 · 导游级讲解 · 预算仪表盘，装进一个双击就开的网页。</p>
+</div>
 
-  <div class="sec">
-    <div class="sec-h"><span class="ey">Pillars</span><h2>它不一样在哪</h2><span class="ln"></span></div>
+<!-- 01 墨线航路 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">01</span><h2>一次旅行的生成航路</h2><span class="ln"></span></div>
+    <p class="sec-sub">从装下技能到拿到成品——五个路标，一条墨线走完。</p>
+    <div class="route">
+      <svg viewBox="0 0 960 150" preserveAspectRatio="xMidYMid meet" aria-label="TripInk 工作流程">
+        <path class="rt" d="M60 96 C150 96 170 44 260 44 C350 44 370 100 470 100 C570 100 590 48 690 48 C780 48 810 96 900 96"/>
+        <g class="wp"><circle cx="60" cy="96" r="15"/><text x="60" y="101" text-anchor="middle">1</text></g>
+        <text class="lbl lbl-t" x="60" y="134" text-anchor="middle">装技能</text>
+        <text class="lbl" x="60" y="22" text-anchor="middle">复制进技能目录</text>
+        <g class="wp"><circle cx="260" cy="44" r="15"/><text x="260" y="49" text-anchor="middle">2</text></g>
+        <text class="lbl lbl-t" x="260" y="20" text-anchor="middle">说一句</text>
+        <text class="lbl" x="260" y="82" text-anchor="middle">"帮我规划一次旅行"</text>
+        <g class="wp"><circle cx="470" cy="100" r="15"/><text x="470" y="105" text-anchor="middle">3</text></g>
+        <text class="lbl lbl-t" x="470" y="136" text-anchor="middle">答问卷</text>
+        <text class="lbl" x="470" y="24" text-anchor="middle">人数 · 天数 · 风格 · 预算习惯 · 节奏</text>
+        <g class="wp"><circle cx="690" cy="48" r="15"/><text x="690" y="53" text-anchor="middle">4</text></g>
+        <text class="lbl lbl-t" x="690" y="24" text-anchor="middle">看它查证</text>
+        <text class="lbl" x="690" y="86" text-anchor="middle">门票预约 / 天气 / 油价 / 经验帖</text>
+        <g class="wp"><circle cx="900" cy="96" r="15"/><text x="900" y="101" text-anchor="middle">5</text></g>
+        <text class="lbl lbl-t" x="900" y="134" text-anchor="middle">拿成品</text>
+        <text class="lbl" x="900" y="22" text-anchor="middle">HTML · PDF · Word · MD</text>
+        <path d="M913 92 c3 -6 8 -9 8 -9 c0 4 -2 8 -8 9 Z" fill="#b23a2e"/>
+      </svg>
+    </div>
+    <div class="route-mobile">
+      <div class="wp"><b>装技能</b><span>复制进你的智能体技能目录</span></div>
+      <div class="wp"><b>说一句</b><span>"帮我规划一次旅行 / 自驾游"</span></div>
+      <div class="wp"><b>答问卷</b><span>人数 · 天数 · 交通 · 风格 · 预算习惯 · 节奏</span></div>
+      <div class="wp"><b>看它查证</b><span>门票预约 / 天气 / 油价 / 经验帖，逐项迭代确认</span></div>
+      <div class="wp"><b>拿成品</b><span>风格化 HTML + PDF / Word / MD，可一键发布</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 三支柱 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">02</span><h2>它不一样在哪</h2><span class="ln"></span></div>
+    <p class="sec-sub">三个承诺，写进每一次规划的流程里。</p>
     <div class="pillars">
-      <div class="pill"><h3>最懂你</h3><p>先读懂这趟旅行：谁同行、什么纪念日、什么节奏。隐性需求探测 + 每轮主动推荐（隐藏玩法 / 省钱点 / 风险预警 / 仪式感彩蛋），不等问、先想到。</p></div>
-      <div class="pill"><h3>最靠谱</h3><p>门票与预约规则、天气、油价、经验帖，联网查证、多源交叉，每个数字带来源与日期；网页在旅途中持续拉取当天的真实天气与导航路线；查不到就标"未核实"。</p></div>
-      <div class="pill"><h3>随身行</h3><p>输出 HTML（按旅行风格定制审美）· PDF · Word · MD。HTML 单文件双击即开，一路出行随时查。</p></div>
+      <div class="pillar"><div class="en">Knows you</div><h3>最懂你</h3><p>先读懂这趟旅行：谁同行、什么纪念日、什么节奏。隐性需求探测，加上每轮主动递上的隐藏玩法 / 省钱点 / 风险预警 / 仪式感彩蛋——不等问，先想到。</p></div>
+      <div class="pillar"><div class="en">Verified</div><h3>最靠谱</h3><p>门票与预约规则、天气、油价、经验帖：联网查证、多源交叉，每个数字带来源与日期；旅途中网页持续拉取当天的真实天气与导航路线；查不到，就标"未核实"。</p></div>
+      <div class="pillar"><div class="en">On the road</div><h3>随身行</h3><p>HTML 按旅行风格定制审美，另有 PDF / Word / MD 存档。单文件网页双击即开，出发前是攻略，路上是随行手册。</p></div>
     </div>
   </div>
+</section>
 
-  <div class="sec">
-    <div class="sec-h"><span class="ey">Workflow</span><h2>工作流程</h2><span class="ln"></span></div>
-    <div class="steps">
-      <div class="step"><b>装技能</b><span>复制到你的智能体技能目录</span></div>
-      <div class="step"><b>说一句</b><span>"帮我规划一次旅行 / 自驾游"</span></div>
-      <div class="step"><b>答问卷</b><span>出发地 · 人数 · 天数 · 交通 · 预算习惯 · 旅行风格 · 节奏</span></div>
-      <div class="step"><b>看它查证</b><span>门票预约 / 天气 / 油价 / 经验帖，逐项迭代确认</span></div>
-      <div class="step"><b>拿成品</b><span>风格化 HTML + PDF / Word / MD，可一键发布</span></div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-h"><span class="ey">Live Demo</span><h2>Demo · 大西北自驾 8 天</h2><span class="ln"></span></div>
-    <div class="demo-frame">
-      <iframe src="demo/northwest/" loading="lazy" title="TripInk Demo · 聊城东昌府区⇄敦煌 8 天 7 晚"></iframe>
-      <div class="demo-note">
-        <div class="l">真实生成的一次规划：<b>聊城东昌府区 ⇄ 敦煌 · 3 人 · 8 天 7 晚</b> · "敦煌矿物料"画册风格（已脱敏）</div>
-        <div class="cta" style="margin:0">
-          <a class="btn sec" style="font-size:13px;padding:8px 18px" href="demo/northwest/" target="_blank">全屏打开</a>
-          <a class="btn sec" style="font-size:13px;padding:8px 18px" href="demo/northwest/%E8%A1%8C%E7%A8%8B%E6%89%8B%E5%86%8C.pdf" target="_blank">PDF 手册</a>
-        </div>
+<!-- 03 Demo 墨黑带 -->
+<div class="band">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">03</span><h2>翻开 Demo</h2><span class="ln"></span></div>
+    <p class="sec-sub">一次真实生成的规划——下面这一页，就是 TripInk 的输出物本身。</p>
+    <div class="page-frame"><iframe src="demo/northwest/" loading="lazy" title="TripInk Demo · 聊城东昌府区⇄敦煌 8 天 7 晚"></iframe></div>
+    <div class="meta">
+      <div class="t"><b>大西北自驾 · 聊城东昌府区 ⇄ 敦煌 · 3 人 · 8 天 7 晚</b> · "敦煌矿物料"画册风格 · 已脱敏</div>
+      <div class="cta" style="margin:0">
+        <a class="btn ghost" href="demo/northwest/" target="_blank">全屏打开</a>
+        <a class="btn ghost" href="demo/northwest/%E8%A1%8C%E7%A8%8B%E6%89%8B%E5%86%8C.pdf" target="_blank">PDF 手册</a>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="sec">
-    <div class="sec-h"><span class="ey">Styles</span><h2>主题 × 展示模式</h2><span class="ln"></span></div>
-    <div class="matrix">
-      <div class="thm"><div class="sw"><i style="background:#f2e7cb;border:1px solid #ccc"></i><i style="background:#2b5d86"></i><i style="background:#b23a2e"></i><i style="background:#c98a3e"></i></div><b>丝路矿物料</b><span>历史文化 · 大西北</span></div>
-      <div class="thm"><div class="sw"><i style="background:#eef3f2;border:1px solid #ccc"></i><i style="background:#2f6f8f"></i><i style="background:#3f7d5c"></i><i style="background:#c99a4b"></i></div><b>高原清冽</b><span>雪山湖泊 · 慢节奏</span></div>
-      <div class="thm"><div class="sw"><i style="background:#141419"></i><i style="background:#e8467c"></i><i style="background:#2fd4e0"></i><i style="background:#c8f04a"></i></div><b>都市霓虹</b><span>网红打卡 · 都市美食</span></div>
-      <div class="thm"><div class="sw"><i style="background:#f3f7f4;border:1px solid #ccc"></i><i style="background:#2a9d8f"></i><i style="background:#f4772e"></i><i style="background:#e9c46a"></i></div><b>海滨假日</b><span>海岛 · 亲子</span></div>
-      <div class="thm"><div class="sw"><i style="background:#f7f5f0;border:1px solid #ccc"></i><i style="background:#33525c"></i><i style="background:#a63d2f"></i><i style="background:#98968f"></i></div><b>水墨留白</b><span>江南 · 古镇园林</span></div>
-      <div class="thm"><div class="sw"><i style="background:#f1ede3;border:1px solid #ccc"></i><i style="background:#3d5a3e"></i><i style="background:#8a6b4a"></i><i style="background:#c96f33"></i></div><b>山野暖木</b><span>徒步 · 露营</span></div>
+<!-- 04 风格 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">04</span><h2>先读行程的性格，再决定呈现</h2><span class="ln"></span></div>
+    <p class="sec-sub">六套配色主题 × 四种展示模式——同样的行程，去西北和去江南不该长一个样。</p>
+    <div class="themes">
+      <div class="theme-row"><span class="bar"><i style="background:#f2e7cb"></i><i style="background:#2b5d86"></i><i style="background:#b23a2e"></i><i style="background:#c98a3e"></i></span><b>丝路矿物料</b><span>历史文化 · 大西北 · 石窟关隘（本 Demo 同款）</span></div>
+      <div class="theme-row"><span class="bar"><i style="background:#eef3f2"></i><i style="background:#2f6f8f"></i><i style="background:#3f7d5c"></i><i style="background:#c99a4b"></i></span><b>高原清冽</b><span>雪山湖泊 · 慢节奏自然</span></div>
+      <div class="theme-row"><span class="bar"><i style="background:#141419"></i><i style="background:#e8467c"></i><i style="background:#2fd4e0"></i><i style="background:#c8f04a"></i></span><b>都市霓虹</b><span>网红打卡 · 都市美食</span></div>
+      <div class="theme-row"><span class="bar"><i style="background:#f3f7f4"></i><i style="background:#2a9d8f"></i><i style="background:#f4772e"></i><i style="background:#e9c46a"></i></span><b>海滨假日</b><span>海岛 · 亲子</span></div>
+      <div class="theme-row"><span class="bar"><i style="background:#f7f5f0"></i><i style="background:#33525c"></i><i style="background:#a63d2f"></i><i style="background:#98968f"></i></span><b>水墨留白</b><span>江南 · 古镇园林 · 人文</span></div>
+      <div class="theme-row"><span class="bar"><i style="background:#f1ede3"></i><i style="background:#3d5a3e"></i><i style="background:#8a6b4a"></i><i style="background:#c96f33"></i></span><b>山野暖木</b><span>徒步 · 露营 · 森线自驾</span></div>
     </div>
-    <div class="modes">四种展示模式（版式语言）：<b>纸刊杂志</b> 3:5 海报 · <b>手账拼贴</b> 拍立得与纸胶带 · <b>针织暖物</b> 织纹与缝线 · <b>极简档案</b> 数据控之选——先读行程的性格，再决定呈现。理念致敬 zine 系开源作品。</div>
+    <p class="modes">四种展示模式（版式语言）：<b>纸刊杂志</b>（3:5 海报页）<i>/</i><b>手账拼贴</b>（拍立得 · 纸胶带 · 邮戳）<i>/</i><b>针织暖物</b>（织纹 · 缝线 · 吊牌）<i>/</i><b>极简档案</b>（数据控）——理念致敬 zine 系开源作品。</p>
   </div>
+</section>
 
-  <div class="sec">
-    <div class="sec-h"><span class="ey">Install</span><h2>安装（选你的智能体）</h2><span class="ln"></span></div>
-    <div class="plats">
-      <div class="plat"><h3>Claude Code</h3><p>复制到个人技能目录后，说"帮我规划一次旅行"即触发。</p>
+<!-- 05 安装 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">05</span><h2>装进你的智能体</h2><span class="ln"></span></div>
+    <p class="sec-sub">一套 SKILL.md，三个平台通用。</p>
+    <div class="tabs">
+      <button class="tab on" data-p="p1" onclick="pick(this)">Claude Code</button>
+      <button class="tab" data-p="p2" onclick="pick(this)">Codex</button>
+      <button class="tab" data-p="p3" onclick="pick(this)">其他智能体</button>
+    </div>
+    <div class="panel on" id="p1">
+      <p>复制到个人技能目录，然后对 Claude 说"帮我规划一次旅行"。</p>
 <pre>git clone https://github.com/ryan11njr/tripink.git
 <b># Windows</b>
 xcopy /E /I tripink\skill\travel-planner "%USERPROFILE%\.claude\skills\travel-planner"
 <b># macOS / Linux</b>
-cp -r tripink/skill/travel-planner ~/.claude/skills/</pre></div>
-      <div class="plat"><h3>Codex</h3><p>放入 Codex 技能目录（SKILL.md 约定），对话中同样触发。</p>
+cp -r tripink/skill/travel-planner ~/.claude/skills/</pre>
+    </div>
+    <div class="panel" id="p2">
+      <p>放入 Codex 技能目录（SKILL.md 约定），对话中同样触发。</p>
 <pre>git clone https://github.com/ryan11njr/tripink.git
-cp -r tripink/skill/travel-planner ~/.codex/skills/</pre></div>
-      <div class="plat"><h3>其他智能体</h3><p>任何支持 SKILL.md 约定的智能体：把 skill/travel-planner 放入其技能目录，或在 AGENTS.md / 系统提示中引用该 SKILL.md 的路径。</p>
-<pre>路径：skill/travel-planner/SKILL.md
-依赖：联网搜索 + 网页读取工具即可（无其它依赖）</pre></div>
+cp -r tripink/skill/travel-planner ~/.codex/skills/</pre>
+    </div>
+    <div class="panel" id="p3">
+      <p>任何支持 SKILL.md 约定的智能体：把 skill/travel-planner 放入其技能目录，或在 AGENTS.md / 系统提示中引用该 SKILL.md 的路径。</p>
+<pre>技能入口：skill/travel-planner/SKILL.md
+依赖：联网搜索 + 网页读取工具即可（无其它依赖）</pre>
     </div>
   </div>
+</section>
 
-  <div class="sec">
-    <div class="sec-h"><span class="ey">Structure</span><h2>Skill 结构</h2><span class="ln"></span></div>
+<!-- 06 结构 & 故事 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">06</span><h2>Skill 结构</h2><span class="ln"></span></div>
     <table>
-      <tr><td>SKILL.md</td><td>全流程：问卷 · 隐性需求探测 · 五源交叉验证 · 主动推荐引擎 · 主题×模式选择 · 构建 QA · 发布</td></tr>
-      <tr><td>references/themes.md</td><td>六套配色主题 tokens</td></tr>
-      <tr><td>references/zine-modes.md</td><td>四种展示模式与 CSS 配方（纸刊 / 手账 / 针织 / 档案）</td></tr>
-      <tr><td>references/data-schema.md</td><td>ELEV / DAYS / TIPS / GSRC / GIMG / CATS 数据规范</td></tr>
-      <tr><td>references/template.html</td><td>完整可运行的网页模板（即本站 Demo，换数据+主题即新行程）</td></tr>
-      <tr><td>references/optimize_images.py</td><td>配图压缩工具（缩放 + JPG）</td></tr>
+      <tr><td>SKILL.md</td><td>全流程：问卷 · 隐性需求探测 · 五源交叉验证 · 主动推荐引擎 · 主题×模式 · 构建 QA · 发布</td></tr>
+      <tr><td>themes.md</td><td>六套配色主题 tokens</td></tr>
+      <tr><td>zine-modes.md</td><td>四种展示模式与 CSS 配方</td></tr>
+      <tr><td>data-schema.md</td><td>ELEV / DAYS / TIPS / GSRC / GIMG / CATS 数据规范</td></tr>
+      <tr><td>template.html</td><td>完整可运行网页模板（即本站 Demo）</td></tr>
+      <tr><td>optimize_images.py</td><td>配图压缩工具</td></tr>
     </table>
+    <div class="story">
+      <span class="first">Why the name</span>
+      古人出嘉峪关，要领一份"<b>关照</b>"——既是通行凭证，也是一路有人照应。TripInk 想做一份属于今天的"关照"：先读懂谁要出发、为何出发，再查证门票、天气与路线，把结果<b>印（ink）成一本可以点开的旅行杂志</b>。它不替你旅行，只让每一步更明白，也更像你。
+    </div>
   </div>
+</section>
 
-  <div class="sec">
-    <div class="sec-h"><span class="ey">Story</span><h2>为什么叫 TripInk</h2><span class="ln"></span></div>
-    <div class="story">古人出嘉峪关，要领一份"<b>关照</b>"——它既是通行凭证，也意味着一路有人照应。TripInk 想做一份属于今天的"关照"：先读懂谁要出发、为何出发，再查证门票、天气与路线，把结果<b>印（ink）成一本可以点开的旅行杂志</b>。它不替你旅行，只让每一步更明白，也更像你。</div>
-  </div>
-
-</div>
+</main>
 
 <footer>
   <div>TripInk · Your trip, in ink. · <a href="https://github.com/ryan11njr/tripink" target="_blank">GitHub</a> · MIT License</div>
   <div>Demo 数据来源：Open-Meteo · OSRM · 高德瓦片 · 敦煌研究院 · 《中国国家地理》 · 汽油价格网 · 小红书 / 马蜂窝 · 汽车之家</div>
-  <div class="src">仅供个人行程规划参考，不提供订票等服务。Best experienced with Claude Code · Codex · any SKILL.md agent.</div>
+  <div class="src">仅供个人行程规划参考，不提供订票等服务。Works with Claude Code · Codex · any SKILL.md agent.</div>
 </footer>
 
+<script>
+function pick(btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t===btn));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id===btn.dataset.p));
+}
+</script>
 </body>
 </html>
