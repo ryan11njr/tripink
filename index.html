@@ -54,8 +54,7 @@ header.top a.gh:hover{border-color:var(--cin);color:var(--cin)}
 .hero{padding:64px 0 26px;text-align:center}
 .hero .og-header{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--line);box-shadow:0 26px 60px -26px rgba(27,24,21,.30);margin:0 0 20px}
 .hero .slogan-cn{font-family:var(--fdisp);font-size:17px;color:var(--ink3);margin-bottom:2px}
-.hero .stamp{display:inline-flex;gap:8px;align-items:center;margin-top:26px;padding:6px 16px;border:1.5px dashed var(--cin);border-radius:8px;color:var(--cin);font-size:12.5px;letter-spacing:.06em;transform:rotate(-1.6deg)}
-.hero .stamp b{font-weight:700}
+.hero .stamp{margin-top:22px;font-size:13px;color:var(--ink3);letter-spacing:.02em}
 .cta{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
 .btn{display:inline-block;text-decoration:none;font-size:15px;padding:12px 30px;border-radius:999px;border:1.5px solid var(--ink);transition:.18s;font-weight:500}
 .btn.pri{background:var(--ink);color:var(--paper)}
@@ -76,23 +75,15 @@ section{padding:78px 0 8px}
 .sec-head .ln{flex:1;height:1px;background:var(--line)}
 .sec-sub{color:var(--ink3);font-size:14px;margin:0 0 30px}
 
-/* ===== 墨线航路（签名）===== */
-.route{margin:26px 0 6px}
-.route svg{width:100%;height:auto;display:block}
-.route .rt{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-dasharray:1 9}
-.route .wp circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6}
-.route .wp text{font-family:var(--fnum);font-weight:600;font-size:15px;fill:var(--ink)}
-.route .lbl{font-family:var(--fbody);font-size:13px;fill:var(--ink2)}
-.route .lbl-t{font-weight:700;fill:var(--ink)}
-.route-mobile{display:none}
-@media(max-width:760px){
-  .route{display:none}
-  .route-mobile{display:block;border-left:2px dashed var(--ink);margin:8px 0 8px 12px;padding-left:22px}
-  .route-mobile .wp{position:relative;padding:10px 0}
-  .route-mobile .wp:before{content:"";position:absolute;left:-29px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
-  .route-mobile b{display:block;font-family:var(--fdisp);font-size:16px}
-  .route-mobile span{font-size:13px;color:var(--ink2)}
-}
+/* ===== 航路（横版，任意宽度）===== */
+.route{display:flex;align-items:flex-start;flex-wrap:wrap;margin:36px 0 10px}
+.route .wp{flex:0 0 auto;width:116px;text-align:center}
+.route .wp i{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);font-style:normal;font-family:var(--fnum);font-weight:600;font-size:15px}
+.route .wp:last-of-type i{background:var(--cin);border-color:var(--cin);color:var(--paper)}
+.route .wp b{display:block;font-family:var(--fdisp);font-size:15px;margin-top:8px}
+.route .wp span{display:block;font-size:12px;color:var(--ink3);line-height:1.5;margin-top:2px}
+.route .seg{flex:1 1 26px;min-width:16px;border-top:2px dashed var(--ink);margin-top:17px;opacity:.7}
+@media(max-width:600px){.route{justify-content:center;gap:6px 0}.route .seg{flex:1 1 100%;border:none;height:8px}}
 
 /* ===== 三支柱：排版式，无盒 ===== */
 .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:38px 34px;margin-top:10px}
@@ -169,48 +160,31 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
   <div class="hero">
     <img class="og-header" src="assets/brand/og-tripink.png" alt="TripInk · Your trip, in ink."/>
     <div class="slogan-cn">最懂你的旅行设计师</div>
-    <div class="stamp"><b>开源</b>·<b>MIT</b>·<b>Claude Code / Codex / 任何 SKILL.md 智能体</b></div>
+    <div class="stamp">开源 · MIT · 支持 Claude Code / Codex / 任何 SKILL.md 智能体</div>
     <div class="cta">
       <a class="btn pri" href="demo/northwest/" target="_blank">翻开 Demo</a>
       <a class="btn sec" href="https://github.com/ryan11njr/tripink" target="_blank">GitHub 仓库</a>
     </div>
   </div>
 
-  <p class="one-liner">不是又一份 AI 文字攻略。<br/>TripInk 先<b>读懂你</b><span class="arrow"> → </span>再<b>查证世界</b><span class="arrow"> → </span>把你的行程<b>印成一本可交互的旅行杂志</b>——<br/>海拔剖面 · 真实导航路线 · 实时天气 · 导游级讲解 · 预算仪表盘，装进一个双击就开的网页。</p>
+  <p class="one-liner">说白了：让 AI 写攻略不稀奇，稀奇的是<b>写完还能用</b>。<br/>TripInk 会先问清楚你是谁、几个人、什么节奏，再当场去查门票、天气、油费和网友经验，<br/>最后把整趟行程做成<b>一个能点开的网页</b>——路上随时看，比翻聊天记录强多了。</p>
 </div>
 
 <!-- 01 墨线航路 -->
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="no">01</span><h2>一次旅行的生成航路</h2><span class="ln"></span></div>
-    <p class="sec-sub">从装下技能到拿到成品——五个路标，一条墨线走完。</p>
+    <div class="sec-head"><span class="no">01</span><h2>五步，从一句话到一本杂志</h2><span class="ln"></span></div>
+    <p class="sec-sub">装好之后，剩下的就是聊天。</p>
     <div class="route">
-      <svg viewBox="0 0 960 150" preserveAspectRatio="xMidYMid meet" aria-label="TripInk 工作流程">
-        <path class="rt" d="M60 96 C150 96 170 44 260 44 C350 44 370 100 470 100 C570 100 590 48 690 48 C780 48 810 96 900 96"/>
-        <g class="wp"><circle cx="60" cy="96" r="15"/><text x="60" y="101" text-anchor="middle">1</text></g>
-        <text class="lbl lbl-t" x="60" y="134" text-anchor="middle">装技能</text>
-        <text class="lbl" x="60" y="22" text-anchor="middle">复制进技能目录</text>
-        <g class="wp"><circle cx="260" cy="44" r="15"/><text x="260" y="49" text-anchor="middle">2</text></g>
-        <text class="lbl lbl-t" x="260" y="20" text-anchor="middle">说一句</text>
-        <text class="lbl" x="260" y="82" text-anchor="middle">"帮我规划一次旅行"</text>
-        <g class="wp"><circle cx="470" cy="100" r="15"/><text x="470" y="105" text-anchor="middle">3</text></g>
-        <text class="lbl lbl-t" x="470" y="136" text-anchor="middle">答问卷</text>
-        <text class="lbl" x="470" y="24" text-anchor="middle">人数 · 天数 · 风格 · 预算习惯 · 节奏</text>
-        <g class="wp"><circle cx="690" cy="48" r="15"/><text x="690" y="53" text-anchor="middle">4</text></g>
-        <text class="lbl lbl-t" x="690" y="24" text-anchor="middle">看它查证</text>
-        <text class="lbl" x="690" y="86" text-anchor="middle">门票预约 / 天气 / 油价 / 经验帖</text>
-        <g class="wp"><circle cx="900" cy="96" r="15"/><text x="900" y="101" text-anchor="middle">5</text></g>
-        <text class="lbl lbl-t" x="900" y="134" text-anchor="middle">拿成品</text>
-        <text class="lbl" x="900" y="22" text-anchor="middle">HTML · PDF · Word · MD</text>
-        <path d="M913 92 c3 -6 8 -9 8 -9 c0 4 -2 8 -8 9 Z" fill="#b23a2e"/>
-      </svg>
-    </div>
-    <div class="route-mobile">
-      <div class="wp"><b>装技能</b><span>复制进你的智能体技能目录</span></div>
-      <div class="wp"><b>说一句</b><span>"帮我规划一次旅行 / 自驾游"</span></div>
-      <div class="wp"><b>答问卷</b><span>人数 · 天数 · 交通 · 风格 · 预算习惯 · 节奏</span></div>
-      <div class="wp"><b>看它查证</b><span>门票预约 / 天气 / 油价 / 经验帖，逐项迭代确认</span></div>
-      <div class="wp"><b>拿成品</b><span>风格化 HTML + PDF / Word / MD，可一键发布</span></div>
+      <div class="wp"><i>1</i><b>装技能</b><span>复制进技能目录</span></div>
+      <div class="seg"></div>
+      <div class="wp"><i>2</i><b>说一句话</b><span>"帮我规划一次旅行"</span></div>
+      <div class="seg"></div>
+      <div class="wp"><i>3</i><b>答问卷</b><span>人数 · 天数 · 风格 · 预算</span></div>
+      <div class="seg"></div>
+      <div class="wp"><i>4</i><b>看它查证</b><span>门票 · 天气 · 油价 · 经验帖</span></div>
+      <div class="seg"></div>
+      <div class="wp"><i>5</i><b>拿成品</b><span>网页 + PDF / Word / MD</span></div>
     </div>
   </div>
 </section>
@@ -218,12 +192,12 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 <!-- 02 三支柱 -->
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="no">02</span><h2>它不一样在哪</h2><span class="ln"></span></div>
-    <p class="sec-sub">三个承诺，写进每一次规划的流程里。</p>
+    <div class="sec-head"><span class="no">02</span><h2>凭什么说不一样</h2><span class="ln"></span></div>
+    <p class="sec-sub">三个实在的差别。</p>
     <div class="pillars">
-      <div class="pillar"><div class="en">Knows you</div><h3>最懂你</h3><p>先读懂这趟旅行：谁同行、什么纪念日、什么节奏。隐性需求探测，加上每轮主动递上的隐藏玩法 / 省钱点 / 风险预警 / 仪式感彩蛋——不等问，先想到。</p></div>
-      <div class="pillar"><div class="en">Verified</div><h3>最靠谱</h3><p>门票与预约规则、天气、油价、经验帖：联网查证、多源交叉，每个数字带来源与日期；旅途中网页持续拉取当天的真实天气与导航路线；查不到，就标"未核实"。</p></div>
-      <div class="pillar"><div class="en">On the road</div><h3>随身行</h3><p>HTML 按旅行风格定制审美，另有 PDF / Word / MD 存档。单文件网页双击即开，出发前是攻略，路上是随行手册。</p></div>
+      <div class="pillar"><div class="en">Knows you</div><h3>最懂你</h3><p>你说"随便"，它不会真随便。带爸妈就自动放慢节奏，赶上纪念日就留一段仪式感，还会主动提醒你"这个票要提前七天约"这种坑。</p></div>
+      <div class="pillar"><div class="en">Verified</div><h3>最靠谱</h3><p>门票多少钱、几点关门、那天几度、油费多少——全是当场查的，标着来源和日期；查不到就老实写"未核实"。出发那天，网页里的天气和路线还是新的。</p></div>
+      <div class="pillar"><div class="en">On the road</div><h3>随身行</h3><p>成品是一个网页，双击就能开、手机也能看；想留档就导出 PDF / Word / MD。出发前是攻略，路上是随行手册。</p></div>
     </div>
   </div>
 </section>
@@ -231,11 +205,11 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 <!-- 03 Demo 墨黑带 -->
 <div class="band">
   <div class="wrap">
-    <div class="sec-head"><span class="no">03</span><h2>翻开 Demo</h2><span class="ln"></span></div>
-    <p class="sec-sub">一次真实生成的规划——下面这一页，就是 TripInk 的输出物本身。</p>
+    <div class="sec-head"><span class="no">03</span><h2>别光听我说，点开看</h2><span class="ln"></span></div>
+    <p class="sec-sub">下面这一页，就是它真实生成的成品。</p>
     <div class="page-frame"><iframe src="demo/northwest/" loading="lazy" title="TripInk Demo · 聊城东昌府区⇄敦煌 8 天 7 晚"></iframe></div>
     <div class="meta">
-      <div class="t"><b>大西北自驾 · 聊城东昌府区 ⇄ 敦煌 · 3 人 · 8 天 7 晚</b> · "敦煌矿物料"画册风格 · 已脱敏</div>
+      <div class="t"><b>大西北自驾 · 聊城东昌府区 ⇄ 敦煌 · 3 人 · 8 天</b> · 已脱敏</div>
       <div class="cta" style="margin:0">
         <a class="btn ghost" href="demo/northwest/" target="_blank">全屏打开</a>
         <a class="btn ghost" href="demo/northwest/%E8%A1%8C%E7%A8%8B%E6%89%8B%E5%86%8C.pdf" target="_blank">PDF 手册</a>
@@ -247,8 +221,8 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 <!-- 04 风格 -->
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="no">04</span><h2>先读行程的性格，再决定呈现</h2><span class="ln"></span></div>
-    <p class="sec-sub">六套配色主题 × 四种展示模式——同样的行程，去西北和去江南不该长一个样。</p>
+    <div class="sec-head"><span class="no">04</span><h2>去哪儿玩，页面就长什么样</h2><span class="ln"></span></div>
+    <p class="sec-sub">六套配色 × 四种版式，不是换个颜色那么简单。</p>
     <div class="themes">
       <div class="theme-row"><span class="bar"><i style="background:#f2e7cb"></i><i style="background:#2b5d86"></i><i style="background:#b23a2e"></i><i style="background:#c98a3e"></i></span><b>丝路矿物料</b><span>历史文化 · 大西北 · 石窟关隘（本 Demo 同款）</span></div>
       <div class="theme-row"><span class="bar"><i style="background:#eef3f2"></i><i style="background:#2f6f8f"></i><i style="background:#3f7d5c"></i><i style="background:#c99a4b"></i></span><b>高原清冽</b><span>雪山湖泊 · 慢节奏自然</span></div>
@@ -257,14 +231,14 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
       <div class="theme-row"><span class="bar"><i style="background:#f7f5f0"></i><i style="background:#33525c"></i><i style="background:#a63d2f"></i><i style="background:#98968f"></i></span><b>水墨留白</b><span>江南 · 古镇园林 · 人文</span></div>
       <div class="theme-row"><span class="bar"><i style="background:#f1ede3"></i><i style="background:#3d5a3e"></i><i style="background:#8a6b4a"></i><i style="background:#c96f33"></i></span><b>山野暖木</b><span>徒步 · 露营 · 森线自驾</span></div>
     </div>
-    <p class="modes">四种展示模式（版式语言）：<b>纸刊杂志</b>（3:5 海报页）<i>/</i><b>手账拼贴</b>（拍立得 · 纸胶带 · 邮戳）<i>/</i><b>针织暖物</b>（织纹 · 缝线 · 吊牌）<i>/</i><b>极简档案</b>（数据控）——理念致敬 zine 系开源作品。</p>
+    <p class="modes">版式有四种：<b>纸刊杂志</b>（海报页）、<b>手账拼贴</b>（拍立得 · 纸胶带 · 邮戳）、<b>针织暖物</b>（织纹 · 缝线）、<b>极简档案</b>（数据控）。灵感来自 GitHub 上的 zine 系作品。</p>
   </div>
 </section>
 
 <!-- 05 安装 -->
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="no">05</span><h2>装进你的智能体</h2><span class="ln"></span></div>
+    <div class="sec-head"><span class="no">05</span><h2>怎么装</h2><span class="ln"></span></div>
     <p class="sec-sub">一套 SKILL.md，三个平台通用。</p>
     <div class="tabs">
       <button class="tab on" data-p="p1" onclick="pick(this)">Claude Code</button>
@@ -272,7 +246,7 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
       <button class="tab" data-p="p3" onclick="pick(this)">其他智能体</button>
     </div>
     <div class="panel on" id="p1">
-      <p>复制到个人技能目录，然后对 Claude 说"帮我规划一次旅行"。</p>
+      <p>复制到个人技能目录，然后说一句"帮我规划一次旅行"就行。</p>
 <pre>git clone https://github.com/ryan11njr/tripink.git
 <b># Windows</b>
 xcopy /E /I tripink\skill\travel-planner "%USERPROFILE%\.claude\skills\travel-planner"
@@ -295,7 +269,7 @@ cp -r tripink/skill/travel-planner ~/.codex/skills/</pre>
 <!-- 06 结构 & 故事 -->
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="no">06</span><h2>Skill 结构</h2><span class="ln"></span></div>
+    <div class="sec-head"><span class="no">06</span><h2>里面都有什么</h2><span class="ln"></span></div>
     <table>
       <tr><td>SKILL.md</td><td>全流程：问卷 · 隐性需求探测 · 五源交叉验证 · 主动推荐引擎 · 主题×模式 · 构建 QA · 发布</td></tr>
       <tr><td>themes.md</td><td>六套配色主题 tokens</td></tr>
@@ -306,7 +280,7 @@ cp -r tripink/skill/travel-planner ~/.codex/skills/</pre>
     </table>
     <div class="story">
       <span class="first">Why the name</span>
-      古人出嘉峪关，要领一份"<b>关照</b>"——既是通行凭证，也是一路有人照应。TripInk 想做一份属于今天的"关照"：先读懂谁要出发、为何出发，再查证门票、天气与路线，把结果<b>印（ink）成一本可以点开的旅行杂志</b>。它不替你旅行，只让每一步更明白，也更像你。
+      古时候出嘉峪关，得先领一份"<b>关照</b>"——相当于古代的护照，意思是这一路有人照应。TripInk 想干的就是这件事：出发前把你没想到的替你想到，把查得到的都查清楚，再把你的行程"<b>印</b>"成一本能点开的杂志。它不替你玩，但能让你玩得明白。
     </div>
   </div>
 </section>
