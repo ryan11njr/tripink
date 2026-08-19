@@ -51,9 +51,14 @@ header.top a.gh{margin-left:auto;font-size:13px;color:var(--ink2);text-decoratio
 header.top a.gh:hover{border-color:var(--cin);color:var(--cin)}
 
 /* ===== Hero：字排版 + 将落墨滴 ===== */
-.hero{padding:64px 0 26px;text-align:center}
-.hero .og-header{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--line);box-shadow:0 26px 60px -26px rgba(27,24,21,.30);margin:0 0 20px}
-.hero .slogan-cn{font-family:var(--fdisp);font-size:17px;color:var(--ink3);margin-bottom:2px}
+.hero{padding:92px 0 30px;text-align:center}
+.hero .word{font-size:clamp(58px,11vw,108px);font-weight:800;letter-spacing:-.015em;line-height:1;margin:0 0 6px;font-family:var(--fbody)}
+.hero .word .ii{position:relative;display:inline-block}
+.hero .word .ii .drop{position:absolute;left:50%;transform:translateX(-50%);top:-.34em;width:.30em;height:.30em;animation:fall 2.6s cubic-bezier(.3,.7,.4,1) infinite}
+@keyframes fall{0%{transform:translate(-50%,-26px) scale(.8);opacity:0}18%{opacity:1}55%,70%{transform:translate(-50%,-2px) scale(1)}78%{transform:translate(-50%,-8px) scale(1.04,.92)}100%{transform:translate(-50%,-26px) scale(.8);opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero .word .ii .drop{animation:none;transform:translate(-50%,-10px)}}
+.hero .slogan-en{font-family:var(--fnum);font-style:italic;font-weight:500;font-size:clamp(19px,2.6vw,25px);color:var(--ink2)}
+.hero .slogan-cn{font-family:var(--fdisp);font-size:17px;color:var(--ink3);margin-top:4px}
 .hero .stamp{margin-top:22px;font-size:13px;color:var(--ink3);letter-spacing:.02em}
 .cta{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
 .btn{display:inline-block;text-decoration:none;font-size:15px;padding:12px 30px;border-radius:999px;border:1.5px solid var(--ink);transition:.18s;font-weight:500}
@@ -158,7 +163,8 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 <!-- Hero -->
 <div class="wrap">
   <div class="hero">
-    <img class="og-header" src="assets/brand/og-tripink.png" alt="TripInk · Your trip, in ink."/>
+    <h1 class="word">Trip<span class="ii">I<svg class="drop" viewBox="0 0 24 30"><path d="M12 1 C14.5 6 19 9.5 19 15.5 A7 7 0 1 1 5 15.5 C5 9.5 9.5 6 12 1 Z" fill="#b23a2e"/></svg></span>nk</h1>
+    <div class="slogan-en">Your trip, in ink.</div>
     <div class="slogan-cn">最懂你的旅行设计师</div>
     <div class="stamp">开源 · MIT · 支持 Claude Code / Codex / 任何 SKILL.md 智能体</div>
     <div class="cta">
@@ -167,7 +173,7 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
     </div>
   </div>
 
-  <p class="one-liner">说白了：让 AI 写攻略不稀奇，稀奇的是<b>写完还能用</b>。<br/>TripInk 会先问清楚你是谁、几个人、什么节奏，再当场去查门票、天气、油费和网友经验，<br/>最后把整趟行程做成<b>一个能点开的网页</b>——路上随时看，比翻聊天记录强多了。</p>
+  <p class="one-liner">让 AI 写攻略不稀奇，稀奇的是写完真的能用。<br/>TripInk 会先问清楚你的同行人、节奏和预算习惯，再去查证门票、天气、油价和真实经验，<br/>最后把整趟行程做成一个能点开的网页——<b>出发前是攻略，在路上是手册</b>。</p>
 </div>
 
 <!-- 01 墨线航路 -->
@@ -192,12 +198,12 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 <!-- 02 三支柱 -->
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="no">02</span><h2>凭什么说不一样</h2><span class="ln"></span></div>
+    <div class="sec-head"><span class="no">02</span><h2>它有什么不一样</h2><span class="ln"></span></div>
     <p class="sec-sub">三个实在的差别。</p>
     <div class="pillars">
-      <div class="pillar"><div class="en">Knows you</div><h3>最懂你</h3><p>你说"随便"，它不会真随便。带爸妈就自动放慢节奏，赶上纪念日就留一段仪式感，还会主动提醒你"这个票要提前七天约"这种坑。</p></div>
-      <div class="pillar"><div class="en">Verified</div><h3>最靠谱</h3><p>门票多少钱、几点关门、那天几度、油费多少——全是当场查的，标着来源和日期；查不到就老实写"未核实"。出发那天，网页里的天气和路线还是新的。</p></div>
-      <div class="pillar"><div class="en">On the road</div><h3>随身行</h3><p>成品是一个网页，双击就能开、手机也能看；想留档就导出 PDF / Word / MD。出发前是攻略，路上是随行手册。</p></div>
+      <div class="pillar"><div class="en">Knows you</div><h3>最懂你</h3><p>带爸妈同行，节奏自动放慢；赶上纪念日，行程里会留出一段仪式感。你不必逐条交代，它会先替你想到——包括"这张票要提前七天预约"这样的坑。</p></div>
+      <div class="pillar"><div class="en">Verified</div><h3>最靠谱</h3><p>门票价格、开放时间、当天天气、一路油费，全部当场查证，标注来源与日期；查不到的，老实写"未核实"。出发那天，网页里的天气和路线依然是新的。</p></div>
+      <div class="pillar"><div class="en">On the road</div><h3>随身行</h3><p>成品是一个双击即开的网页，手机同样能看；需要存档，随时导出 PDF、Word 或 MD。</p></div>
     </div>
   </div>
 </section>
@@ -205,8 +211,8 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 <!-- 03 Demo 墨黑带 -->
 <div class="band">
   <div class="wrap">
-    <div class="sec-head"><span class="no">03</span><h2>别光听我说，点开看</h2><span class="ln"></span></div>
-    <p class="sec-sub">下面这一页，就是它真实生成的成品。</p>
+    <div class="sec-head"><span class="no">03</span><h2>看一个真实成品</h2><span class="ln"></span></div>
+    <p class="sec-sub">下面这一页，就是 TripInk 生成的一份完整行程。</p>
     <div class="page-frame"><iframe src="demo/northwest/" loading="lazy" title="TripInk Demo · 聊城东昌府区⇄敦煌 8 天 7 晚"></iframe></div>
     <div class="meta">
       <div class="t"><b>大西北自驾 · 聊城东昌府区 ⇄ 敦煌 · 3 人 · 8 天</b> · 已脱敏</div>
@@ -222,7 +228,7 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
 <section>
   <div class="wrap">
     <div class="sec-head"><span class="no">04</span><h2>去哪儿玩，页面就长什么样</h2><span class="ln"></span></div>
-    <p class="sec-sub">六套配色 × 四种版式，不是换个颜色那么简单。</p>
+    <p class="sec-sub">六套配色 × 四种版式——同样的行程，去西北和去江南不该长一个样。</p>
     <div class="themes">
       <div class="theme-row"><span class="bar"><i style="background:#f2e7cb"></i><i style="background:#2b5d86"></i><i style="background:#b23a2e"></i><i style="background:#c98a3e"></i></span><b>丝路矿物料</b><span>历史文化 · 大西北 · 石窟关隘（本 Demo 同款）</span></div>
       <div class="theme-row"><span class="bar"><i style="background:#eef3f2"></i><i style="background:#2f6f8f"></i><i style="background:#3f7d5c"></i><i style="background:#c99a4b"></i></span><b>高原清冽</b><span>雪山湖泊 · 慢节奏自然</span></div>
@@ -246,7 +252,7 @@ footer .src{max-width:640px;margin:8px auto 0;font-size:11px}
       <button class="tab" data-p="p3" onclick="pick(this)">其他智能体</button>
     </div>
     <div class="panel on" id="p1">
-      <p>复制到个人技能目录，然后说一句"帮我规划一次旅行"就行。</p>
+      <p>复制到个人技能目录，然后说一句"帮我规划一次旅行"即可。</p>
 <pre>git clone https://github.com/ryan11njr/tripink.git
 <b># Windows</b>
 xcopy /E /I tripink\skill\travel-planner "%USERPROFILE%\.claude\skills\travel-planner"
@@ -280,7 +286,7 @@ cp -r tripink/skill/travel-planner ~/.codex/skills/</pre>
     </table>
     <div class="story">
       <span class="first">Why the name</span>
-      古时候出嘉峪关，得先领一份"<b>关照</b>"——相当于古代的护照，意思是这一路有人照应。TripInk 想干的就是这件事：出发前把你没想到的替你想到，把查得到的都查清楚，再把你的行程"<b>印</b>"成一本能点开的杂志。它不替你玩，但能让你玩得明白。
+      古时候出嘉峪关，得先领一份"<b>关照</b>"——相当于古代的护照，意思是这一路有人照应。TripInk 想干的就是这件事：出发前把你没想到的替你想到，把查得到的都查清楚，再把你的行程"<b>印</b>"成一本能点开的杂志。
     </div>
   </div>
 </section>
