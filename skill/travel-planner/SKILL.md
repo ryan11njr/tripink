@@ -6,6 +6,7 @@ description: 规划旅行并生成高审美互动行程网页（含实时天气/
 # Travel Planner · 旅行规划 → 高审美互动网页（v2）
 
 > 项目代号 **TripInk**——Your trip, in ink. 把旅行写进墨里：读懂你 → 查证世界 → 把行程印成可交互的旅行杂志。
+> **适用任何支持 SKILL.md 约定的智能体**（Claude Code、Codex 等）。文中工具名按平台替换：Claude Code 用 MCP 搜索/阅读工具，Codex 用内置 browsing / web search，其余平台同理。
 
 产出物：单文件互动 `index.html`（海拔剖面 + 真实导航路线 + 每日分页 + 导游级讲解 + 按到达日期实时天气 + 美食住宿 + 预算仪表盘），可选 `行程手册.md/.pdf` 与 GitHub Pages 发布。
 
@@ -17,7 +18,7 @@ description: 规划旅行并生成高审美互动行程网页（含实时天气/
 
 ---
 
-## Phase 1 · 问卷（AskUserQuestion，每批 ≤4 问）
+## Phase 1 · 问卷（用所在平台的交互提问机制，如 Claude Code 的 AskUserQuestion；无此机制则对话逐批提问。每批 ≤4 问）
 
 **第一批（必问）**：出发地 / 目的地（可模糊）· 出发日期与天数 · 人数（大人+小孩）· 出行方式（自驾/高铁+租车/飞机+租车/包车/公共交通）。
 **第二批（必问）**：消费习惯（经济/舒适/轻奢）· 旅行风格（紧凑多看/网红出片/随性体验/慢节奏自然/历史深度/亲子）· 节奏容忍（≤5h / 6–8h / 10h+ 硬日可接受）· 必去清单 & 雷区。
@@ -39,7 +40,7 @@ description: 规划旅行并生成高审美互动行程网页（含实时天气/
 
 ## Phase 2 · 研究（多源交叉验证）
 
-工具优先级：`mcp__web-search-prime__web_search_prime(location:"cn")` → `mcp__web-reader__webReader` / `WebFetch`；GitHub 项目用 zread MCP。
+工具：用你可用的联网搜索与网页阅读工具（Claude Code：`mcp__web-search-prime__web_search_prime(location:"cn")` → `mcp__web-reader__webReader` / `WebFetch`，GitHub 项目用 zread MCP；Codex：内置 browsing / web search）。
 
 **交叉验证矩阵**（关键事实至少两源，单源须标注"单源"）：
 官方（景区公众号/官网/研究院）→ OTA（携程/美团门票页）→ UGC（小红书/马蜂窝/大众点评）→ 短视频（抖音经验）→ 结构化数据（Open-Meteo 天气、OSRM 路线、qiyoujiage 油价）。
@@ -77,6 +78,8 @@ description: 规划旅行并生成高审美互动行程网页（含实时天气/
 手册（可选）：仓库 `gen_handbook.js`/`render_pdf.js` 出 md+pdf；Word 可按 `gen_docs.js` 先例（docx-js）生成；或手写等价 MD。
 
 ## Phase 6 · 发布（可选，先问）
+
+有 `gh` CLI 则用下列命令；无则在 GitHub 网页手动建仓库并开启 Pages（Settings → Pages → main / root），且根目录加空文件 `.nojekyll`：
 
 ```bash
 mkdir -p publish/img && cp index.html 行程手册.* publish/ && cp -r img/. publish/img/
